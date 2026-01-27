@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../CarTestDataAccessLayer/CarTestDataAccessLayer.csproj" Id="14a32c81-f6dd-4968-a41e-c932cf669a72" />
+  <Project Path="../CarTestLogicalLayer/CarTestLogicalLayer.csproj" Id="4c04ac26-988b-4d9b-9720-e0ee4963ce7d" />
+  <Project Path="../SharedObj/SharedObj.csproj" Id="5079365a-efd6-49a6-afc2-14f78a8d7132" />
+  <Project Path="CarTestUserInterFace.csproj" Id="47a943f0-a986-474a-85aa-21c3497af509" />
+</Solution>
