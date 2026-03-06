@@ -1,4 +1,5 @@
 ﻿using CarTestDataAccessLayer;
+using SharedLogging;
 using SharedObj;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,8 @@ namespace CarTestLogicalLayer
 
         public string Other {  get; set; }
 
+        public string ErrorMessageForRating { get; private set; } = "";
+
 
         private enum enMood
         {
@@ -49,7 +52,7 @@ namespace CarTestLogicalLayer
 
         public clsCarRating() : base()
         {
-
+            
             RegstrationNumber = "";
             Bank = "";
             UseType = "";
@@ -76,6 +79,8 @@ namespace CarTestLogicalLayer
             ChkItem11 = false;
             Other = "";
             CarRatingDTO = new clsSharedclsCarRating();
+            _Mood = enMood.AddNew;
+
         }
 
 
@@ -85,19 +90,19 @@ namespace CarTestLogicalLayer
         protected clsCarRating(clsSharedclsCarRating CarRatingDTO) : base(CarRatingDTO)
         {
             if (CarRatingDTO == null) throw new ArgumentNullException(nameof(CarRatingDTO));
-            RegstrationNumber = CarRatingDTO.RegstrationNumber;
-            Bank = CarRatingDTO.Bank;
-            UseType = CarRatingDTO.UseType;
-            InsuranceType = CarRatingDTO.InsuranceType;
-            EnginNumber = CarRatingDTO.EnginNumber;
-            CarOwner = CarRatingDTO.CarOwner;
-            CarCapacity = CarRatingDTO.CarCapacity;
-            CarCountry = CarRatingDTO.CarCountry;
-            CarStatus = CarRatingDTO.CarStatus;
+            RegstrationNumber = CarRatingDTO.RegstrationNumber ?? ""; 
+            Bank = CarRatingDTO.Bank ?? ""; 
+            UseType = CarRatingDTO.UseType ?? ""; 
+            InsuranceType = CarRatingDTO.InsuranceType ?? ""; 
+            EnginNumber = CarRatingDTO.EnginNumber ?? ""; 
+            CarOwner = CarRatingDTO.CarOwner ?? ""; 
+            CarCapacity = CarRatingDTO.CarCapacity ?? ""; 
+            CarCountry = CarRatingDTO.CarCountry ?? ""; 
+            CarStatus = CarRatingDTO.CarStatus ?? ""; 
             BodyValue = CarRatingDTO.BodyValue;
             StampValue = CarRatingDTO.StampValue;
             TotalValue = CarRatingDTO.TotalValue;
-            TotalValueAsString = CarRatingDTO.TotalValueAsString;
+            TotalValueAsString = CarRatingDTO.TotalValueAsString ?? "";
             ChkItem1 = CarRatingDTO.ChkItem1;
             ChkItem2 = CarRatingDTO.ChkItem2;
             ChkItem3 = CarRatingDTO.ChkItem3;
@@ -109,7 +114,7 @@ namespace CarTestLogicalLayer
             ChkItem9 = CarRatingDTO.ChkItem9;
             ChkItem10 = CarRatingDTO.ChkItem10;
             ChkItem11 = CarRatingDTO.ChkItem11;
-            Other = CarRatingDTO.Other;
+            Other = CarRatingDTO.Other ?? "";
             _Mood = enMood.Update;
         }
 
@@ -198,26 +203,56 @@ namespace CarTestLogicalLayer
             return clsTestData.UpdateRating(dto);
         }
 
+        protected override bool _IsFullObjectValid()
+        {
+            if (!base._IsFullObjectValid())
+            {
+                return false;
+            }
+            bool areNewFieldsValid =
+                                  !string.IsNullOrWhiteSpace(Bank) &&
+                                  !string.IsNullOrWhiteSpace(UseType) &&
+                                  !string.IsNullOrWhiteSpace(CarStatus) &&
+                                  !string.IsNullOrWhiteSpace(TotalValueAsString) &&
+                                  BodyValue >= 0 &&
+                                  TotalValue >= 0;
+            return areNewFieldsValid;
+        }
+
         public bool SaveForRating()
         {
 
-            switch (_Mood)
+            if (!_IsFullObjectValid())
             {
-                case enMood.AddNew:
-                    if (_AddNewRating())
-                    {
-                        _Mood = enMood.Update;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                case enMood.Update:
-                    return _UpdateRating();
-
+                ErrorMessageForRating = "خطأ في عملية الحفظ يرجى تعبئة الحقول بالقيم الصحيحة";
+                return false;
             }
-            return false;
+            try
+            {
+                switch (_Mood)
+                {
+                    case enMood.AddNew:
+                        if (_AddNewRating())
+                        {
+                            _Mood = enMood.Update;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case enMood.Update:
+                        return _UpdateRating();
+
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                clsLogger.LogError(ex, $"BLL -> SaveForRating | Mood = {_Mood}");
+                return false;
+            }
+
         }
     }
 }

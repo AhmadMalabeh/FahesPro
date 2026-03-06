@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnReports = new System.Windows.Forms.Button();
             this.btnSearchScreen = new System.Windows.Forms.Button();
@@ -35,8 +36,10 @@
             this.btnAddNewTestScreen = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnDialyExpensesScreen = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lbUserName = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnLogOut = new System.Windows.Forms.Button();
@@ -47,6 +50,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -65,9 +69,9 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.panel1.Location = new System.Drawing.Point(1087, 0);
+            this.panel1.Location = new System.Drawing.Point(981, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(185, 547);
+            this.panel1.Size = new System.Drawing.Size(195, 639);
             this.panel1.TabIndex = 0;
             // 
             // btnReports
@@ -76,13 +80,16 @@
             this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReports.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReports.ForeColor = System.Drawing.Color.White;
-            this.btnReports.Location = new System.Drawing.Point(3, 387);
+            this.btnReports.Image = global::CarTestUserInterFace.Properties.Resources.Multyreport;
+            this.btnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReports.Location = new System.Drawing.Point(9, 456);
             this.btnReports.Name = "btnReports";
             this.btnReports.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnReports.Size = new System.Drawing.Size(178, 74);
             this.btnReports.TabIndex = 4;
             this.btnReports.Text = "التقارير";
             this.btnReports.UseVisualStyleBackColor = false;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
             // btnSearchScreen
             // 
@@ -90,7 +97,9 @@
             this.btnSearchScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearchScreen.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearchScreen.ForeColor = System.Drawing.Color.White;
-            this.btnSearchScreen.Location = new System.Drawing.Point(3, 295);
+            this.btnSearchScreen.Image = global::CarTestUserInterFace.Properties.Resources.search;
+            this.btnSearchScreen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearchScreen.Location = new System.Drawing.Point(9, 341);
             this.btnSearchScreen.Name = "btnSearchScreen";
             this.btnSearchScreen.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnSearchScreen.Size = new System.Drawing.Size(178, 74);
@@ -105,7 +114,7 @@
             this.btnAddNewEvaluationScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewEvaluationScreen.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddNewEvaluationScreen.ForeColor = System.Drawing.Color.White;
-            this.btnAddNewEvaluationScreen.Location = new System.Drawing.Point(3, 203);
+            this.btnAddNewEvaluationScreen.Location = new System.Drawing.Point(9, 226);
             this.btnAddNewEvaluationScreen.Name = "btnAddNewEvaluationScreen";
             this.btnAddNewEvaluationScreen.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnAddNewEvaluationScreen.Size = new System.Drawing.Size(178, 74);
@@ -120,7 +129,7 @@
             this.btnAddNewTestScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewTestScreen.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddNewTestScreen.ForeColor = System.Drawing.Color.White;
-            this.btnAddNewTestScreen.Location = new System.Drawing.Point(3, 111);
+            this.btnAddNewTestScreen.Location = new System.Drawing.Point(9, 111);
             this.btnAddNewTestScreen.Name = "btnAddNewTestScreen";
             this.btnAddNewTestScreen.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnAddNewTestScreen.Size = new System.Drawing.Size(178, 74);
@@ -143,16 +152,50 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.SteelBlue;
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.btnDialyExpensesScreen);
             this.panel2.Controls.Add(this.btnSettings);
-            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.lbUserName);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.btnLogOut);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(142, 547);
+            this.panel2.Size = new System.Drawing.Size(146, 639);
             this.panel2.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.SteelBlue;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(4, 391);
+            this.button1.Name = "button1";
+            this.button1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.button1.Size = new System.Drawing.Size(136, 41);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "النموذج البياني";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnDialyExpensesScreen
+            // 
+            this.btnDialyExpensesScreen.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnDialyExpensesScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDialyExpensesScreen.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDialyExpensesScreen.ForeColor = System.Drawing.Color.White;
+            this.btnDialyExpensesScreen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDialyExpensesScreen.Location = new System.Drawing.Point(3, 456);
+            this.btnDialyExpensesScreen.Name = "btnDialyExpensesScreen";
+            this.btnDialyExpensesScreen.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnDialyExpensesScreen.Size = new System.Drawing.Size(136, 41);
+            this.btnDialyExpensesScreen.TabIndex = 5;
+            this.btnDialyExpensesScreen.Text = "المصاريف";
+            this.btnDialyExpensesScreen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDialyExpensesScreen.UseVisualStyleBackColor = false;
+            this.btnDialyExpensesScreen.Click += new System.EventHandler(this.btnDialyExpensesScreen_Click);
             // 
             // btnSettings
             // 
@@ -160,24 +203,28 @@
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSettings.ForeColor = System.Drawing.Color.White;
-            this.btnSettings.Location = new System.Drawing.Point(0, 456);
+            this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSettings.ImageIndex = 1;
+            this.btnSettings.Location = new System.Drawing.Point(3, 521);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnSettings.Size = new System.Drawing.Size(137, 41);
-            this.btnSettings.TabIndex = 8;
-            this.btnSettings.Text = "Settings";
+            this.btnSettings.TabIndex = 6;
+            this.btnSettings.Text = "Tools";
+            this.btnSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSettings.UseVisualStyleBackColor = false;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
-            // label5
+            // lbUserName
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(30, 162);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 23);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Admin";
+            this.lbUserName.AutoSize = true;
+            this.lbUserName.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbUserName.ForeColor = System.Drawing.Color.White;
+            this.lbUserName.Location = new System.Drawing.Point(30, 162);
+            this.lbUserName.Name = "lbUserName";
+            this.lbUserName.Size = new System.Drawing.Size(71, 23);
+            this.lbUserName.TabIndex = 7;
+            this.lbUserName.Text = "Admin";
             // 
             // label4
             // 
@@ -206,13 +253,17 @@
             this.btnLogOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogOut.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogOut.ForeColor = System.Drawing.Color.White;
-            this.btnLogOut.Location = new System.Drawing.Point(2, 503);
+            this.btnLogOut.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLogOut.ImageIndex = 2;
+            this.btnLogOut.Location = new System.Drawing.Point(3, 586);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnLogOut.Size = new System.Drawing.Size(137, 41);
-            this.btnLogOut.TabIndex = 4;
+            this.btnLogOut.TabIndex = 7;
             this.btnLogOut.Text = "LogOut";
+            this.btnLogOut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLogOut.UseVisualStyleBackColor = false;
+            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
             // panel3
             // 
@@ -220,9 +271,9 @@
             this.panel3.Controls.Add(this.lbCurrentDate);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(142, 0);
+            this.panel3.Location = new System.Drawing.Point(146, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(945, 79);
+            this.panel3.Size = new System.Drawing.Size(835, 79);
             this.panel3.TabIndex = 2;
             // 
             // lbCurrentDate
@@ -230,7 +281,7 @@
             this.lbCurrentDate.AutoSize = true;
             this.lbCurrentDate.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCurrentDate.ForeColor = System.Drawing.Color.White;
-            this.lbCurrentDate.Location = new System.Drawing.Point(137, 24);
+            this.lbCurrentDate.Location = new System.Drawing.Point(108, 24);
             this.lbCurrentDate.Name = "lbCurrentDate";
             this.lbCurrentDate.Size = new System.Drawing.Size(181, 33);
             this.lbCurrentDate.TabIndex = 2;
@@ -241,7 +292,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(542, 24);
+            this.label2.Location = new System.Drawing.Point(451, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(357, 33);
             this.label2.TabIndex = 1;
@@ -250,31 +301,31 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(628, 103);
+            this.label6.Location = new System.Drawing.Point(566, 107);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(453, 33);
+            this.label6.Size = new System.Drawing.Size(403, 29);
             this.label6.TabIndex = 8;
             this.label6.Text = "فحص وتخمين جميع انواع السيارات";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(213, 103);
+            this.label7.Location = new System.Drawing.Point(192, 107);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(333, 33);
+            this.label7.Size = new System.Drawing.Size(296, 29);
             this.label7.TabIndex = 9;
             this.label7.Text = "معتمدون لدى كافة البنوك";
             // 
             // pictureBox3
             // 
             this.pictureBox3.Image = global::CarTestUserInterFace.Properties.Resources.mechanic_and_vehicle_technician;
-            this.pictureBox3.Location = new System.Drawing.Point(152, 162);
+            this.pictureBox3.Location = new System.Drawing.Point(157, 166);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(447, 266);
+            this.pictureBox3.Size = new System.Drawing.Size(366, 266);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 7;
             this.pictureBox3.TabStop = false;
@@ -282,19 +333,25 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::CarTestUserInterFace.Properties.Resources.CarMechanic_Image1;
-            this.pictureBox2.Location = new System.Drawing.Point(634, 162);
+            this.pictureBox2.Location = new System.Drawing.Point(572, 166);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(447, 266);
+            this.pictureBox2.Size = new System.Drawing.Size(397, 266);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(32, 32);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1272, 547);
+            this.ClientSize = new System.Drawing.Size(1176, 639);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.pictureBox3);
@@ -306,7 +363,8 @@
             this.MaximizeBox = false;
             this.Name = "MainScreen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MainScreen";
+            this.Text = "الشاشة الرئيسية";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainScreen_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -336,13 +394,16 @@
         private System.Windows.Forms.Label lbCurrentDate;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbUserName;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Button btnDialyExpensesScreen;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

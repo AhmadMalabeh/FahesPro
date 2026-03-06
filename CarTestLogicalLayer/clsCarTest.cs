@@ -28,6 +28,7 @@ namespace CarTestLogicalLayer
         public bool PayLater { get; set; }
 
         public clsCar Car;
+        public string ErrorMessage { get; private set; } = "";
 
         private enum enMood
         {
@@ -55,11 +56,10 @@ namespace CarTestLogicalLayer
             TestPrice = -1;
             CenterNotes = "";
             PayLater = false;
-            Car = new clsCar();
+            this.Car = new clsCar();
             CarTestDTO = new clsSharedclsCarTest();
             _Mood = enMood.AddNew;
         }
-
 
         private clsSharedclsCarTest _ToDTO()
         {
@@ -92,7 +92,6 @@ namespace CarTestLogicalLayer
 
         }
 
-
         protected clsCarTest(clsSharedclsCarTest DTO)
         {
             if (DTO == null) throw new ArgumentNullException(nameof(DTO));
@@ -119,9 +118,6 @@ namespace CarTestLogicalLayer
             _Mood = enMood.Update;
         }
 
-
-
-
         public static DataTable getAllTests()
         {
             return clsTestData.GetAllTests();
@@ -131,9 +127,6 @@ namespace CarTestLogicalLayer
         {
             return clsTestData.GetTestByPlateNumber(PlateNumber);
         }
-
-
-
 
         public static clsCarTest GetCarInfoByID(int carID)
         {
@@ -145,17 +138,34 @@ namespace CarTestLogicalLayer
             return new clsCarTest(dto);
         }
 
+        public static clsCarTest GetTestByPlateNumberForCopy(string PlateNumber)
+        {
+            clsSharedclsCarTest dto = clsTestData.GetTestByPlateNumberForCopy(PlateNumber);
+            if (dto == null)
+                return null;
+
+            return new clsCarTest(dto);
+        }
+
+        public static clsCarTest GetTestByShasiNumberForCopy(string ShasiNumber)
+        {
+            clsSharedclsCarTest dto = clsTestData.GetTestByShasiNumberForCopy(ShasiNumber);
+            if (dto == null)
+                return null;
+
+            return new clsCarTest(dto);
+        }
 
         public static DataTable SearchByShasiNumber(string ShasiNumber)
         {
             return clsTestData.GetInfoByShasiNumber(ShasiNumber);
         }
 
-        public static DataTable GetAllInfoBetweenTowDates(string FromDate,string ToDate)
+        
+        public static DataTable GetAllInfoBetweenTowDates(DateTime FromDate, DateTime ToDate)
         {
             return clsTestData.GetInfoFromDateToDate(FromDate, ToDate);
         }
-
 
         private bool _AddNewTest()
         {
@@ -175,8 +185,49 @@ namespace CarTestLogicalLayer
 
 
 
+        protected virtual bool _IsFullObjectValid()
+        {
+            // 1. التحقق من النصوص في الكلاس الرئيسي
+            bool isMainInfoValid = !string.IsNullOrWhiteSpace(CustumerName) &&
+                                   !string.IsNullOrWhiteSpace(FRShassi) &&
+                                   !string.IsNullOrWhiteSpace(FLShassi) &&
+                                   !string.IsNullOrWhiteSpace(BRShassi) &&
+                                   !string.IsNullOrWhiteSpace(BLShassi) &&
+                                   !string.IsNullOrWhiteSpace(EnginTest) &&
+                                   !string.IsNullOrWhiteSpace(GearTest) &&
+                                   !string.IsNullOrWhiteSpace(BodyTest);
+
+            // 2. التحقق من وجود كائن السيارة وصحة بياناته
+            bool isCarDataValid = (Car != null && Car.IsCarValid());
+
+            DateTime minValidDate = new DateTime(2026, 2, 15);
+            bool isNumericValid = true;
+
+            if (TestDate >= minValidDate)
+            {
+                isNumericValid = (TestPrice >= 5);
+            }
+
+            // 3. التحقق من القيم الرقمية والتاريخ
+            
+
+            return isMainInfoValid && isCarDataValid && isNumericValid;
+        }
+
+        public static int GetLastID()
+        {
+            return clsTestData.GetLastID();
+        }
+
         public bool Save()
         {
+
+            if (!_IsFullObjectValid())
+            {
+                ErrorMessage = "خطأ في عملية الحفظ يرجى تعبئة الحقول بالقيم الصحيحة";
+                return false;
+            }
+
             switch (_Mood)
             {
                 case enMood.AddNew:
@@ -201,5 +252,40 @@ namespace CarTestLogicalLayer
         {
             return clsTestData.GetAllTodayTest();
         }
+
+        public static DataTable GetAllTestByDate(DateTime date)
+        {
+            return clsTestData.GetAllTestByDate(date);
+        }
+
+        public static DataTable SearchByCustumerName(string CustumerName)
+        {
+            return clsTestData.GetInfoByCustumerName(CustumerName);
+        }
+
+        
+
+        public static DataTable GetAllTestByCustumerNameAndPayLatterForReport(string CustumerName,DateTime dtFrom,DateTime dtTo)
+        {
+            return clsTestData.GetInfoByCustumerNameAndPayLaterForReports(CustumerName, dtFrom, dtTo);
+        }
+
+        public static DataTable GetInfoFromDateToDateForReports(DateTime FromDate, DateTime ToDate)
+        {
+            return clsTestData.GetInfoFromDateToDateForReports(FromDate, ToDate);
+        }
+
+        
+
+        public static DataTable GetPayLatterReportsFromDateToDate(DateTime dtFrom, DateTime dtTo)
+        {
+            return clsTestData.GetPayLatterReportsFromDateToDate(dtFrom, dtTo);
+        }
+
+        public static DataTable GetAllPayLatterTestsFromDateToDate(DateTime dtFrom, DateTime dtTo)
+        {
+            return clsTestData.GetPayLatterTestsFromDateToDate(dtFrom, dtTo);
+        }
+        
     }
 }

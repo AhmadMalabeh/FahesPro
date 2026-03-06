@@ -41,16 +41,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsBackupManager.cs" />
     <Compile Include="clsCar.cs" />
     <Compile Include="clsCarRating.cs" />
     <Compile Include="clsCarTest.cs" />
+    <Compile Include="clsCharts.cs" />
     <Compile Include="clsClient.cs" />
+    <Compile Include="clsCoumputersInfo.cs" />
+    <Compile Include="clsDialyExpenses.cs" />
+    <Compile Include="clsJordanianCurrencyToWords.cs" />
+    <Compile Include="clsTools.cs" />
+    <Compile Include="clsUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CarTestDataAccessLayer\CarTestDataAccessLayer.csproj">
       <Project>{14a32c81-f6dd-4968-a41e-c932cf669a72}</Project>
       <Name>CarTestDataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedLogging\SharedLogging.csproj">
+      <Project>{095cb728-bffc-46b0-8b22-fd47d22a7e0f}</Project>
+      <Name>SharedLogging</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharedObj\SharedObj.csproj">
       <Project>{5079365a-efd6-49a6-afc2-14f78a8d7132}</Project>

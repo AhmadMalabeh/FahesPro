@@ -17,7 +17,14 @@ namespace CarTestLogicalLayer
         public string CarColor { get; set; }
         public string CarEnginCapacity { get; set; }
 
-        
+        public bool IsCarValid()
+        {
+            return !string.IsNullOrWhiteSpace(CarPlateNumber) &&
+                   !string.IsNullOrWhiteSpace(CarShassiNumber) &&
+                   !string.IsNullOrWhiteSpace(CarMakeModel) &&
+                   !string.IsNullOrWhiteSpace(CarMinufacuringYear) &&
+                   !string.IsNullOrWhiteSpace(CarColor);
+        }
 
         public clsCar()
         {

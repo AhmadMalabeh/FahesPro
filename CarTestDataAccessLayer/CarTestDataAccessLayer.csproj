@@ -46,6 +46,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SharedLogging\SharedLogging.csproj">
+      <Project>{095cb728-bffc-46b0-8b22-fd47d22a7e0f}</Project>
+      <Name>SharedLogging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SharedObj\SharedObj.csproj">
       <Project>{5079365a-efd6-49a6-afc2-14f78a8d7132}</Project>
       <Name>SharedObj</Name>

@@ -20,9 +20,9 @@ namespace CarTestUserInterFace
             btnNewTest.FlatAppearance.BorderSize = 2;
             btnNewEvaluation.FlatAppearance.BorderSize = 2;
             btnGoBackToMainMinu.FlatAppearance.BorderSize = 2;
-            btnNextDate.FlatAppearance.BorderSize = 2;
-            btnRefresh.FlatAppearance.BorderSize = 2;
             btnPrevDate.FlatAppearance.BorderSize = 2;
+            btnRefresh.FlatAppearance.BorderSize = 2;
+            btnNextDate.FlatAppearance.BorderSize = 2;
             
         }
 
@@ -30,22 +30,11 @@ namespace CarTestUserInterFace
         enum enSearchMood { SearchByPlateNumber, SearchByShasiNumber, SearchFromDateToDate, GetAllContact };
 
 
-        private void _SetDataGridInfo()
-        {
-            DataTable dt = clsCarTest.getAllTests();
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.Columns["ID"].DataPropertyName = "ID";
-            dataGridView1.Columns["EntryType1"].DataPropertyName = "EntryType1";
-            dataGridView1.Columns["RatCrTyp1"].DataPropertyName = "RatCrTyp1";
-            dataGridView1.Columns["PlateNumber"].DataPropertyName = "PlateNumber";
-            dataGridView1.Columns["ShasiNumber"].DataPropertyName = "ShasiNumber";
-            dataGridView1.Columns["RatPayLatter1"].DataPropertyName = "RatPayLatter1";
-            dataGridView1.Columns["RatDate1"].DataPropertyName = "RatDate1";
-            dataGridView1.Columns["RatBuyer1"].DataPropertyName = "RatBuyer1";
-            dataGridView1.Columns["RatWorkerNa1"].DataPropertyName = "RatWorkerNa1";
+        DateTime DateFoSearch = DateTime.Today;
 
-            dataGridView1.DataSource = dt;
-        }
+        
+
+        
 
         private void SearchScreen_Load(object sender, EventArgs e)
         {
@@ -82,63 +71,77 @@ namespace CarTestUserInterFace
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            if (chkIncudingDate.Checked == true)
+            DateTime FromDate = DTFrom.Value.Date;
+            DateTime ToDate = DTTo.Value.Date;
+            DataTable dt = null; // نعرّفه كـ null في البداية
+
+            // 1. منطق تحديد مصدر البيانات
+            if (txtPlateNumber.Text.Length > 0)
             {
-                string FromDate = DTFrom.Value.ToString();
-                string ToDate = DTTo.Value.ToString();
-
-                if (FromDate != ToDate)
+                dt = clsCarTest.SearchByPlateNumber(txtPlateNumber.Text.Trim());
+                if (dt.Rows.Count==0)
                 {
-                    DataTable dt = new DataTable();
-                    dt = clsCarTest.GetAllInfoBetweenTowDates(FromDate, ToDate);
-                    _FullDGV_WithInfo(dt, dataGridView1);
+                    MessageBox.Show("لا توجد نتائج مطابقة لرقم اللوحة المدخل.", "نتائج البحث", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
+            }
+            else if (txtShasiNumber.Text.Length > 0)
+            {
+                dt = clsCarTest.SearchByShasiNumber(txtShasiNumber.Text.Trim());
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("لا توجد نتائج مطابقة لرقم الشاسيه المدخل.", "نتائج البحث", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    return;
+                }
+            }
+            else if (txtCoustumerName.Text.Length > 0)
+            {
+                dt = clsCarTest.SearchByCustumerName(txtCoustumerName.Text.Trim());
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("لا توجد نتائج مطابقة لاسم العميل المدخل.", "نتائج البحث", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+            else if (chkIncudingDate.Checked)
+            {
+                if (FromDate > ToDate)
+                {
+                    MessageBox.Show("تاريخ البدء لا يمكن أن يكون أكبر من تاريخ الانتهاء", "خطأ في التاريخ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (chkPayLatter.Checked)
+                {
+                    dt = clsCarTest.GetAllPayLatterTestsFromDateToDate(FromDate, ToDate);
+                }
                 else
                 {
-                    _SetDataGridInfo();
+                    dt = (FromDate == ToDate) ? clsCarTest.GetAllTestByDate(FromDate) : clsCarTest.GetAllInfoBetweenTowDates(FromDate, ToDate);
                 }
-
-
+            }
+            else if (chkAllTests.Checked)
+            {
+                dt = clsCarTest.getAllTests();
             }
 
-            else if (txtShasiNumber.Text.ToString() != "")
+            // 2. سطر واحد فقط لعرض البيانات إذا وجدت
+            if (dt != null)
             {
-                DataTable dt = new DataTable();
-                dt = clsCarTest.SearchByShasiNumber(txtShasiNumber.Text.ToString());
                 _FullDGV_WithInfo(dt, dataGridView1);
-
-            }
-            else if (txtPlateNumber.Text.ToString() != "")
-            {
-                DataTable dt = new DataTable();
-                dt = clsCarTest.SearchByPlateNumber(txtPlateNumber.Text.ToString());
-                _FullDGV_WithInfo(dt, dataGridView1);
-            }
-            else if (DTFrom.Value.ToString() == DTTo.Value.ToString())
-            {
-                DataTable dt = clsCarTest.GetAllTodayTests();
-                if (dt != null)
-                {
-                    _FullDGV_WithInfo(dt, dataGridView1);
-                }
-                else
-                {
-                    MessageBox.Show("Error");
-                }
-
             }
             else
             {
-                MessageBox.Show("Please Enter Plate Number Or Shasi Number");
+                MessageBox.Show("يرجى إدخال قيم للبحث أو اختيار خيار 'كل الفحوصات'", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
 
         }
 
         private void btnNewEvaluation_Click(object sender, EventArgs e)
         {
+            EvaluationScreen evaluationscreen = new EvaluationScreen();
 
+            evaluationscreen.Show();
         }
 
         
@@ -159,13 +162,13 @@ namespace CarTestUserInterFace
                 {
                     // فتح شاشة التقدير
                     EvaluationScreen evaluationScreen = new EvaluationScreen(CarID);
-                     evaluationScreen.ShowDialog(); // يفضل ShowDialog لضمان التركيز على الشاشة الجديدة
+                     evaluationScreen.Show(); // يفضل ShowDialog لضمان التركيز على الشاشة الجديدة
                 }
                 else if (entryType == "فحص مركبة")
                 {
                     // فتح شاشة الفحص
                     TestScreen newTestScreen = new TestScreen(CarID);
-                    newTestScreen.ShowDialog();
+                    newTestScreen.Show();
                 }
                 else
                 {
@@ -173,6 +176,80 @@ namespace CarTestUserInterFace
                     MessageBox.Show("نوع الإدخال غير محدد أو غير معروف: " + entryType);
                 }
             }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            DataTable dt = clsCarTest.GetAllTodayTests();
+            if (dt != null)
+            {
+                _FullDGV_WithInfo(dt, dataGridView1);
+            }
+            else
+            {
+                MessageBox.Show("Error");
+            }
+            DTFrom.Value = DateTime.Today;
+            DTTo.Value = DateTime.Today;
+            DateFoSearch = DateTime.Today;
+        }
+
+        private void btnNewTest_Click(object sender, EventArgs e)
+        {
+            TestScreen testScreen = new TestScreen();
+            testScreen.Show();
+        }
+
+        private void btnPrevDate_Click(object sender, EventArgs e)
+        {
+            DateFoSearch = DateFoSearch.AddDays(-1);
+            DataTable dt = clsCarTest.GetAllTestByDate(DateFoSearch);
+            if (dt != null)
+            {
+                _FullDGV_WithInfo(dt, dataGridView1);
+            }
+            else
+            {
+                MessageBox.Show("Error");
+            }
+
+        }
+
+        private void btnNextDate_Click(object sender, EventArgs e)
+        {
+            DateFoSearch = DateFoSearch.AddDays(1);
+            if (DateFoSearch > DateTime.Today)
+            {
+                DateFoSearch = DateTime.Today;
+                DataTable dtToday = clsCarTest.GetAllTodayTests();
+                if (dtToday != null)
+                {
+                    _FullDGV_WithInfo(dtToday, dataGridView1);
+                }
+                else
+                {
+                    MessageBox.Show("Error");
+                }
+
+            }
+            else
+            {
+                DataTable dt = clsCarTest.GetAllTestByDate(DateFoSearch);
+                if (dt != null)
+                {
+                    _FullDGV_WithInfo(dt, dataGridView1);
+                }
+                else
+                {
+                    MessageBox.Show("Error");
+                }
+            }
+                
+        }
+
+        private void btnGoBackToMainMinu_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
