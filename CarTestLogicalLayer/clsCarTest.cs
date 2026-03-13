@@ -27,6 +27,9 @@ namespace CarTestLogicalLayer
         public string CenterNotes { get; set; }
         public bool PayLater { get; set; }
 
+        public int? CreatedByUserID { get; set; }
+        public int? ModifiedByUserID { get; set; }
+
         public clsCar Car;
         public string ErrorMessage { get; private set; } = "";
 
@@ -59,6 +62,7 @@ namespace CarTestLogicalLayer
             this.Car = new clsCar();
             CarTestDTO = new clsSharedclsCarTest();
             _Mood = enMood.AddNew;
+
         }
 
         private clsSharedclsCarTest _ToDTO()
@@ -88,6 +92,9 @@ namespace CarTestLogicalLayer
             CarTestDTO.CarColor = this.Car.CarColor;
             CarTestDTO.CarEnginCapacity = this.Car.CarEnginCapacity;
 
+            CarTestDTO.CreatedByUserID = this.CreatedByUserID;
+            CarTestDTO.ModifiedByUserID = this.ModifiedByUserID;
+
             return CarTestDTO;
 
         }
@@ -114,6 +121,8 @@ namespace CarTestLogicalLayer
             TestPrice = DTO.TestPrice;
             CenterNotes = DTO.CenterNotes ?? "";
             PayLater = DTO.PayLater;
+            CreatedByUserID = DTO.CreatedByUserID;
+            ModifiedByUserID = DTO.ModifiedByUserID;
 
             _Mood = enMood.Update;
         }
@@ -219,7 +228,7 @@ namespace CarTestLogicalLayer
             return clsTestData.GetLastID();
         }
 
-        public bool Save()
+        public bool Save(int currentUserID)
         {
 
             if (!_IsFullObjectValid())
@@ -231,6 +240,8 @@ namespace CarTestLogicalLayer
             switch (_Mood)
             {
                 case enMood.AddNew:
+                    CreatedByUserID = currentUserID;
+                    ModifiedByUserID = null;
                     if (_AddNewTest())
                     {
                         _Mood = enMood.Update;
@@ -239,6 +250,7 @@ namespace CarTestLogicalLayer
                     return false;
 
                 case enMood.Update:
+                    ModifiedByUserID = currentUserID;
                     return _UpdateTest();
             }
 

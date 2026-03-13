@@ -39,6 +39,8 @@ namespace CarTestLogicalLayer
 
         public string Other {  get; set; }
 
+        
+
         public string ErrorMessageForRating { get; private set; } = "";
 
 
@@ -115,6 +117,8 @@ namespace CarTestLogicalLayer
             ChkItem10 = CarRatingDTO.ChkItem10;
             ChkItem11 = CarRatingDTO.ChkItem11;
             Other = CarRatingDTO.Other ?? "";
+            CreatedByUserID = CarRatingDTO.CreatedByUserID;
+            ModifiedByUserID = CarRatingDTO.ModifiedByUserID;
             _Mood = enMood.Update;
         }
 
@@ -185,7 +189,8 @@ namespace CarTestLogicalLayer
             CarRatingDTO.ChkItem10 = this.ChkItem10;
             CarRatingDTO.ChkItem11 = this.ChkItem11;
             CarRatingDTO.Other = this.Other;
-
+            CarRatingDTO.CreatedByUserID = this.CreatedByUserID;
+            CarRatingDTO.ModifiedByUserID = this.ModifiedByUserID;
             return CarRatingDTO;
         }
 
@@ -219,7 +224,7 @@ namespace CarTestLogicalLayer
             return areNewFieldsValid;
         }
 
-        public bool SaveForRating()
+        public bool SaveForRating(int currentUserID)
         {
 
             if (!_IsFullObjectValid())
@@ -232,6 +237,8 @@ namespace CarTestLogicalLayer
                 switch (_Mood)
                 {
                     case enMood.AddNew:
+                        CreatedByUserID = currentUserID;
+                        ModifiedByUserID = null;
                         if (_AddNewRating())
                         {
                             _Mood = enMood.Update;
@@ -242,6 +249,7 @@ namespace CarTestLogicalLayer
                             return false;
                         }
                     case enMood.Update:
+                        ModifiedByUserID = currentUserID;
                         return _UpdateRating();
 
                 }

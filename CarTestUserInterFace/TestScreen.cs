@@ -18,6 +18,7 @@ namespace CarTestUserInterFace
 
         clsCarTest CarTest;
         clsCarTest CopyTest;
+        int UserID;
 
         DateTime minValidDate = new DateTime(2026, 2, 15);
         enum enMood { AddNew, Update };
@@ -99,7 +100,7 @@ namespace CarTestUserInterFace
             button3.Image = imageList1.Images[0];
             btnSaveResult.Image = imageList1.Images[1];
         }
-        public TestScreen()
+        public TestScreen(int UserID)
         {
             InitializeComponent();
             AssignIssueToComboBoxes();
@@ -110,7 +111,7 @@ namespace CarTestUserInterFace
             _Mood = enMood.AddNew;
             int CurrentID = clsCarTest.GetLastID() + 1;
             txtID.Text = CurrentID.ToString();  
-
+            this.UserID = UserID;
             btnShowNotes.Tag = "1";
 
             
@@ -142,7 +143,7 @@ namespace CarTestUserInterFace
         }
 
 
-        public TestScreen(int CarID)
+        public TestScreen(int CarID,int UserID)
         {
             InitializeComponent();
             txtID.Text = CarID.ToString();
@@ -154,7 +155,7 @@ namespace CarTestUserInterFace
             FillControlsWithData(CarTest);
 
             txtDate.Text = CarTest.TestDate.ToString("dd-MM-yyyy");
-            
+            this.UserID = UserID;
 
             _Mood = enMood.Update;
             btnSaveResult.Text = "  تعديل";
@@ -237,7 +238,7 @@ namespace CarTestUserInterFace
                     return;
                 }
 
-                if (CarTest.Save())
+                if (CarTest.Save(UserID))
                 {
                     MessageBox.Show("تم حفظ البيانات بنجاح");
 

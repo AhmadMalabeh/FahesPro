@@ -21,6 +21,7 @@ namespace CarTestUserInterFace
         clsCarTest CopyTest;
         DateTime minValidDate = new DateTime(2026, 2, 15);
         enum enMood { AddNew, Update };
+        int UserID;
 
         enMood _Mood;
 
@@ -117,7 +118,7 @@ namespace CarTestUserInterFace
         }
 
 
-        public EvaluationScreen()
+        public EvaluationScreen(int UserID)
         {
             InitializeComponent();
             int CurrentID = clsCarTest.GetLastID() + 1;
@@ -129,6 +130,7 @@ namespace CarTestUserInterFace
             AssignImageToButtons();
             AssignIssueToComboBoxes();
             button3.Enabled = false;
+            this.UserID = UserID;
         }
 
         private void FillControlsWithData(clsCarTest TestValues)
@@ -176,7 +178,7 @@ namespace CarTestUserInterFace
         }
 
         
-        public EvaluationScreen(int ID)
+        public EvaluationScreen(int ID,int UserID)
         {
             InitializeComponent();
             AssignIssueToComboBoxes();
@@ -232,6 +234,7 @@ namespace CarTestUserInterFace
             chkItem11.Checked = (bool)CarRating.ChkItem11;
             txtOthers.Text = CarRating.Other;
             nudTestValue.Value = Convert.ToDecimal(CarRating.TestPrice);
+            this.UserID = UserID;
 
             _Mood = enMood.Update;
             btnSaveResult.Text = "تعديل";
@@ -339,7 +342,7 @@ namespace CarTestUserInterFace
                     MessageBox.Show("خطاء السعر لا يمكن ان يكون اقل من 5 دنانير");
                     return;
                 }
-                if (CarRating.SaveForRating())
+                if (CarRating.SaveForRating(UserID))
                 {
                     MessageBox.Show("تم حفظ البيانات بنجاح");
 

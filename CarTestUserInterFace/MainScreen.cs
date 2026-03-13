@@ -43,19 +43,19 @@ namespace CarTestUserInterFace
 
         private void btnSearchScreen_Click(object sender, EventArgs e)
         {
-            SearchScreen searchScreen = new SearchScreen();
+            SearchScreen searchScreen = new SearchScreen(CurrentUser.UserID);
             searchScreen.Show();
         }
 
         private void btnAddNewTestScreen_Click(object sender, EventArgs e)
         {
-            TestScreen testScreen = new TestScreen();
+            TestScreen testScreen = new TestScreen(CurrentUser.UserID);
             testScreen.Show();
         }
 
         private void btnAddNewEvaluationScreen_Click(object sender, EventArgs e)
         {
-            EvaluationScreen evaluationScreen = new EvaluationScreen();
+            EvaluationScreen evaluationScreen = new EvaluationScreen(CurrentUser.UserID);
             evaluationScreen.Show();
         }
 

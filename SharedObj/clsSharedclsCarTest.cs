@@ -30,5 +30,8 @@ namespace SharedObj
         public string CarMinufacuringYear { get; set; }
         public string CarColor { get; set; }
         public string CarEnginCapacity { get; set; }
+
+        public int? CreatedByUserID { get; set; }
+        public int? ModifiedByUserID { get; set; }
     }
 }

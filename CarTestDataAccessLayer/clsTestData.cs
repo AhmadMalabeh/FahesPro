@@ -154,7 +154,14 @@ namespace CarTestDataAccessLayer
                 CenterNotes = reader["RatCenterNotes1"].ToString(),
                 TestDate = Convert.ToDateTime(reader["RatDate1"]),
                 TestPrice = Convert.ToDouble(reader["Voucher1"]),
-                PayLater = Convert.ToBoolean(reader["RatPayLatter1"])
+                PayLater = Convert.ToBoolean(reader["RatPayLatter1"]),
+                CreatedByUserID = reader["CreatedByUserID"] != DBNull.Value
+                   ? (int?)reader.GetInt32(reader.GetOrdinal("CreatedByUserID"))
+                   : null,
+                ModifiedByUserID = reader["ModifiedByUserID"] != DBNull.Value
+                   ? (int?)reader.GetInt32(reader.GetOrdinal("ModifiedByUserID"))
+                   : null
+
             };
         }
 
@@ -208,7 +215,13 @@ namespace CarTestDataAccessLayer
                 ChkItem9 = reader["ChkItem9"] != DBNull.Value && Convert.ToBoolean(reader["ChkItem9"]),
                 ChkItem10 = reader["RatChkIsGood1"] != DBNull.Value && Convert.ToBoolean(reader["RatChkIsGood1"]),
                 ChkItem11 = reader["RatChkToBeSale1"] != DBNull.Value && Convert.ToBoolean(reader["RatChkToBeSale1"]),
-                Other = reader["RatOther1"].ToString()
+                Other = reader["RatOther1"].ToString(),
+                CreatedByUserID = reader["CreatedByUserID"] != DBNull.Value
+                   ? (int?)reader.GetInt32(reader.GetOrdinal("CreatedByUserID"))
+                   : null,
+                ModifiedByUserID = reader["ModifiedByUserID"] != DBNull.Value
+                   ? (int?)reader.GetInt32(reader.GetOrdinal("ModifiedByUserID"))
+                   : null
             };
         }
 
@@ -722,21 +735,19 @@ namespace CarTestDataAccessLayer
             return _ExecuteDataTable(Query, "GetTestsByYear", p);
         }
 
-
-
         public static int AddNewTest(clsSharedclsCarTest dto)
         {
             string Query = @"INSERT INTO Car_Rating_Testing01
-    (RatCrTyp1,ShasiNumber,RatYear1,RatEnginQ1,RatColor1,PlateNumber,
-     RatShasiFR1,RatShasiFL1,RatShasiBR1,RatShasiBL1,RatEngin1,RatEnginPers1,
-     RatGear1,RatBakaks1,RatNote1,RatWorkerNa1,RatCenterNotes1,
-     RatDate1,EntryType1,RatBuyer1,Voucher1,RatPayLatter1)
-    VALUES
-    (@RatCrTyp1,@ShasiNumber,@RatYear1,@RatEnginQ1,@RatColor1,@PlateNumber,
-     @RatShasiFR1,@RatShasiFL1,@RatShasiBR1,@RatShasiBL1,@RatEngin1,@RatEnginPers1,
-     @RatGear1,@RatBakaks1,@RatNote1,@RatWorkerNa1,@RatCenterNotes1,
-     @RatDate1,@EntryType1,@RatBuyer1,@Voucher1,@RatPayLatter1);
-     SELECT SCOPE_IDENTITY();";
+                             (RatCrTyp1,ShasiNumber,RatYear1,RatEnginQ1,RatColor1,PlateNumber,
+                              RatShasiFR1,RatShasiFL1,RatShasiBR1,RatShasiBL1,RatEngin1,RatEnginPers1,
+                              RatGear1,RatBakaks1,RatNote1,RatWorkerNa1,RatCenterNotes1,
+                              RatDate1,EntryType1,RatBuyer1,Voucher1,RatPayLatter1,CreatedByUserID)
+                             VALUES
+                             (@RatCrTyp1,@ShasiNumber,@RatYear1,@RatEnginQ1,@RatColor1,@PlateNumber,
+                              @RatShasiFR1,@RatShasiFL1,@RatShasiBR1,@RatShasiBL1,@RatEngin1,@RatEnginPers1,
+                              @RatGear1,@RatBakaks1,@RatNote1,@RatWorkerNa1,@RatCenterNotes1,
+                              @RatDate1,@EntryType1,@RatBuyer1,@Voucher1,@RatPayLatter1,@CreatedByUserID);
+                              SELECT SCOPE_IDENTITY();";
 
             SqlParameter[] p = {
             new SqlParameter("@RatCrTyp1", dto.CarMakeModel),
@@ -760,7 +771,8 @@ namespace CarTestDataAccessLayer
             new SqlParameter("@EntryType1", "فحص مركبة"),
             new SqlParameter("@RatBuyer1", dto.CustumerName),
             new SqlParameter("@Voucher1", dto.TestPrice),
-            new SqlParameter("@RatPayLatter1", dto.PayLater)
+            new SqlParameter("@RatPayLatter1", dto.PayLater),
+            new SqlParameter("@CreatedByUserID", (object)dto.CreatedByUserID ?? DBNull.Value)
         };
 
             return _ExecuteScalar(Query, "AddNewTest", p);
@@ -769,27 +781,28 @@ namespace CarTestDataAccessLayer
         public static bool UpdateTest(clsSharedclsCarTest dto)
         {
             string Query = @"UPDATE Car_Rating_Testing01
-        SET RatCrTyp1 = @RatCrTyp1,
-        ShasiNumber = @ShasiNumber,
-        RatYear1 = @RatYear1,
-        RatEnginQ1 = @RatEnginQ1,
-        RatColor1 = @RatColor1,
-        PlateNumber = @PlateNumber,
-        RatShasiFR1 = @RatShasiFR1,
-        RatShasiFL1 = @RatShasiFL1,
-        RatShasiBR1 = @RatShasiBR1,
-        RatShasiBL1 = @RatShasiBL1,
-        RatEngin1 = @RatEngin1,
-        RatEnginPers1 = @RatEnginPers1,
-        RatGear1 = @RatGear1,
-        RatBakaks1 = @RatBakaks1,
-        RatNote1 = @RatNote1,
-        RatWorkerNa1 = @RatWorkerNa1,
-        RatBuyer1 = @RatBuyer1,
-        Voucher1 = @Voucher1,
-        RatCenterNotes1 = @RatCenterNotes1,
-        RatPayLatter1 = @RatPayLatter1
-        WHERE ID = @ID";
+                             SET RatCrTyp1 = @RatCrTyp1,
+                             ShasiNumber = @ShasiNumber,
+                             RatYear1 = @RatYear1,
+                             RatEnginQ1 = @RatEnginQ1,
+                             RatColor1 = @RatColor1,
+                             PlateNumber = @PlateNumber,
+                             RatShasiFR1 = @RatShasiFR1,
+                             RatShasiFL1 = @RatShasiFL1,
+                             RatShasiBR1 = @RatShasiBR1,
+                             RatShasiBL1 = @RatShasiBL1,
+                             RatEngin1 = @RatEngin1,
+                             RatEnginPers1 = @RatEnginPers1,
+                             RatGear1 = @RatGear1,
+                             RatBakaks1 = @RatBakaks1,
+                             RatNote1 = @RatNote1,
+                             RatWorkerNa1 = @RatWorkerNa1,
+                             RatBuyer1 = @RatBuyer1,
+                             Voucher1 = @Voucher1,
+                             RatCenterNotes1 = @RatCenterNotes1,
+                             RatPayLatter1 = @RatPayLatter1,
+                             ModifiedByUserID = @ModifiedByUserID
+                             WHERE ID = @ID";
 
             SqlParameter[] p = {
             new SqlParameter("@ID", dto.ID),
@@ -812,7 +825,8 @@ namespace CarTestDataAccessLayer
             new SqlParameter("@RatCenterNotes1", dto.CenterNotes),
             new SqlParameter("@RatBuyer1", dto.CustumerName),
             new SqlParameter("@Voucher1", dto.TestPrice),
-            new SqlParameter("@RatPayLatter1", dto.PayLater)
+            new SqlParameter("@RatPayLatter1", dto.PayLater),
+            new SqlParameter("@ModifiedByUserID", (object)dto.ModifiedByUserID ?? DBNull.Value)
         };
 
             return _ExecuteNonQuery(Query, "UpdateTest", p);
@@ -842,14 +856,14 @@ namespace CarTestDataAccessLayer
          Voucher1, RatPayLatter1, 
          RatRegNo1, RatMr1, RatUsTyp1, RatInsuranceType1, RatEnginNo1, RatCarOwner1, RatCarCapacity1, CarCountry1, RatGenStatus1, 
          RatBodyRat1, RatStampRat1, RatTotal1, RatTotalChar1, RatOther1,
-         ChkItem1, ChkItem2, ChkItem3, ChkItem4, ChkItem5, ChkItem6, ChkItem7, ChkItem8, ChkItem9, RatChkIsGood1, RatChkToBeSale1)
+         ChkItem1, ChkItem2, ChkItem3, ChkItem4, ChkItem5, ChkItem6, ChkItem7, ChkItem8, ChkItem9, RatChkIsGood1, RatChkToBeSale1,CreatedByUserID)
         VALUES 
         (@RatCrTyp1, @ShasiNumber, @RatYear1, @RatEnginQ1, @RatColor1, @PlateNumber, @RatShasiFR1, @RatShasiFL1, @RatShasiBR1, @RatShasiBL1, 
          @RatEngin1, @RatEnginPers1, @RatGear1, @RatBakaks1, @RatNote1, @RatWorkerNa1, @RatCenterNotes1, @RatDate1, @EntryType1, @RatBuyer1, 
          @Voucher1, @RatPayLatter1, 
          @RegNum, @Bank, @UseType, @InsType, @EngNum, @Owner, @Cap, @Country, @Status, 
          @BValue, @SValue, @TValue, @TValueStr, @Other,
-         @C1, @C2, @C3, @C4, @C5, @C6, @C7, @C8, @C9, @C10, @C11);
+         @C1, @C2, @C3, @C4, @C5, @C6, @C7, @C8, @C9, @C10, @C11,@CreatedByUserID);
         SELECT SCOPE_IDENTITY();";
 
             SqlParameter[] p = {
@@ -899,7 +913,8 @@ namespace CarTestDataAccessLayer
             new SqlParameter("@C8", dto.ChkItem8),
             new SqlParameter("@C9", dto.ChkItem9),
             new SqlParameter("@C10", dto.ChkItem10),
-            new SqlParameter("@C11", dto.ChkItem11)
+            new SqlParameter("@C11", dto.ChkItem11),
+            new SqlParameter("@CreatedByUserID", (object)dto.CreatedByUserID ?? DBNull.Value)
         };
 
             return _ExecuteScalar(Query, "AddNewRating", p);
@@ -922,7 +937,7 @@ namespace CarTestDataAccessLayer
             
             ChkItem1 = @C1, ChkItem2 = @C2, ChkItem3 = @C3, ChkItem4 = @C4, ChkItem5 = @C5, 
             ChkItem6 = @C6, ChkItem7 = @C7, ChkItem8 = @C8, ChkItem9 = @C9, 
-            RatChkIsGood1 = @C10, RatChkToBeSale1 = @C11
+            RatChkIsGood1 = @C10, RatChkToBeSale1 = @C11,ModifiedByUserID = @ModifiedByUserID
             WHERE ID = @ID";
 
             SqlParameter[] p = {
@@ -972,7 +987,8 @@ namespace CarTestDataAccessLayer
             new SqlParameter("@C8", dto.ChkItem8),
             new SqlParameter("@C9", dto.ChkItem9),
             new SqlParameter("@C10", dto.ChkItem10),
-            new SqlParameter("@C11", dto.ChkItem11)
+            new SqlParameter("@C11", dto.ChkItem11),
+            new SqlParameter("@ModifiedByUserID", (object)dto.ModifiedByUserID ?? DBNull.Value)
         };
 
             return _ExecuteNonQuery(Query, "UpdateRating", p);

@@ -13,7 +13,8 @@ namespace CarTestUserInterFace
 {
     public partial class SearchScreen : Form
     {
-        public SearchScreen()
+        int UserID;
+        public SearchScreen(int UserID)
         {
             InitializeComponent();
             SearchButton.FlatAppearance.BorderSize = 2;
@@ -23,7 +24,8 @@ namespace CarTestUserInterFace
             btnPrevDate.FlatAppearance.BorderSize = 2;
             btnRefresh.FlatAppearance.BorderSize = 2;
             btnNextDate.FlatAppearance.BorderSize = 2;
-            
+            this.UserID = UserID;
+
         }
 
 
@@ -139,7 +141,7 @@ namespace CarTestUserInterFace
 
         private void btnNewEvaluation_Click(object sender, EventArgs e)
         {
-            EvaluationScreen evaluationscreen = new EvaluationScreen();
+            EvaluationScreen evaluationscreen = new EvaluationScreen(UserID);
 
             evaluationscreen.Show();
         }
@@ -161,13 +163,13 @@ namespace CarTestUserInterFace
                 if (entryType == "تقدير مركبة")
                 {
                     // فتح شاشة التقدير
-                    EvaluationScreen evaluationScreen = new EvaluationScreen(CarID);
+                    EvaluationScreen evaluationScreen = new EvaluationScreen(CarID,UserID);
                      evaluationScreen.Show(); // يفضل ShowDialog لضمان التركيز على الشاشة الجديدة
                 }
                 else if (entryType == "فحص مركبة")
                 {
                     // فتح شاشة الفحص
-                    TestScreen newTestScreen = new TestScreen(CarID);
+                    TestScreen newTestScreen = new TestScreen(CarID,UserID);
                     newTestScreen.Show();
                 }
                 else
@@ -196,7 +198,7 @@ namespace CarTestUserInterFace
 
         private void btnNewTest_Click(object sender, EventArgs e)
         {
-            TestScreen testScreen = new TestScreen();
+            TestScreen testScreen = new TestScreen(UserID);
             testScreen.Show();
         }
 
