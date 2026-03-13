@@ -38,7 +38,6 @@
             this.nudExpensesValue = new System.Windows.Forms.NumericUpDown();
             this.dgvExpensesData = new System.Windows.Forms.DataGridView();
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.btnSaveResult = new System.Windows.Forms.Button();
             this.btnClearScreen = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -162,7 +161,7 @@
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnClose.ImageIndex = 0;
-            this.btnClose.Location = new System.Drawing.Point(413, 329);
+            this.btnClose.Location = new System.Drawing.Point(274, 329);
             this.btnClose.Name = "btnClose";
             this.btnClose.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnClose.Size = new System.Drawing.Size(113, 40);
@@ -170,24 +169,6 @@
             this.btnClose.Text = "رحوع";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnDelete.Enabled = false;
-            this.btnDelete.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDelete.ImageIndex = 0;
-            this.btnDelete.Location = new System.Drawing.Point(278, 329);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnDelete.Size = new System.Drawing.Size(113, 40);
-            this.btnDelete.TabIndex = 45;
-            this.btnDelete.Text = "حذف";
-            this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnSaveResult
             // 
@@ -307,7 +288,6 @@
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnClearScreen);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnSaveResult);
             this.Controls.Add(this.dgvExpensesData);
             this.Controls.Add(this.nudExpensesValue);
@@ -344,7 +324,6 @@
         private System.Windows.Forms.NumericUpDown nudExpensesValue;
         private System.Windows.Forms.DataGridView dgvExpensesData;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSaveResult;
         private System.Windows.Forms.Button btnClearScreen;
         private System.Windows.Forms.Button btnSearch;

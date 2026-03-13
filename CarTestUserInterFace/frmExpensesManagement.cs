@@ -88,7 +88,7 @@ namespace CarTestUserInterFace
             cmbExpenseesType.SelectedIndex = -1;
 
             btnSaveResult.Text = "حفظ";
-            btnDelete.Enabled = false;
+            //btnDelete.Enabled = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -159,7 +159,7 @@ namespace CarTestUserInterFace
                     cmbExpenseesType.SelectedValue = _Expense.CategoryID;
 
                     btnSaveResult.Text = "تعديل";
-                    btnDelete.Enabled = true;
+                    //btnDelete.Enabled = true;
                 }
             }
         }
