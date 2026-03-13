@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsSharedAuditLog.cs" />
     <Compile Include="clsSharedclsCarRating.cs" />
     <Compile Include="clsSharedclsCarTest.cs" />
     <Compile Include="clsSharedclsUsers.cs" />

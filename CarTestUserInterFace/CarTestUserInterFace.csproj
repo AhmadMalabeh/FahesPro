@@ -97,6 +97,12 @@
     <Compile Include="EvaluationScreen.Designer.cs">
       <DependentUpon>EvaluationScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAuditLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAuditLog.Designer.cs">
+      <DependentUpon>frmAuditLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmChart.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     <None Include="Images\delete.png" />
     <EmbeddedResource Include="EvaluationScreen.resx">
       <DependentUpon>EvaluationScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAuditLog.resx">
+      <DependentUpon>frmAuditLog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmChart.resx">
       <DependentUpon>frmChart.cs</DependentUpon>

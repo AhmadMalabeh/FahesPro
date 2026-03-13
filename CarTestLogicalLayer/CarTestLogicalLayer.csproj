@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsAuditHelper.cs" />
+    <Compile Include="clsAuditing.cs" />
     <Compile Include="clsBackupManager.cs" />
     <Compile Include="clsCar.cs" />
     <Compile Include="clsCarRating.cs" />

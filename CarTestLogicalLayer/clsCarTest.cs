@@ -33,6 +33,8 @@ namespace CarTestLogicalLayer
         public clsCar Car;
         public string ErrorMessage { get; private set; } = "";
 
+        public int GetID() => this.ID;
+
         private enum enMood
         {
             AddNew,
@@ -245,13 +247,20 @@ namespace CarTestLogicalLayer
                     if (_AddNewTest())
                     {
                         _Mood = enMood.Update;
+                        clsAuditHelper.LogInsert(this.ID, currentUserID, "فحص مركبة");
                         return true;
                     }
                     return false;
 
                 case enMood.Update:
+                    clsCarTest oldData = clsCarTest.GetCarInfoByID(this.ID);
                     ModifiedByUserID = currentUserID;
-                    return _UpdateTest();
+                    if (_UpdateTest())
+                    {
+                        clsAuditHelper.LogTestChanges(oldData, this, currentUserID);
+                        return true;
+                    }
+                    return false;
             }
 
             return false;

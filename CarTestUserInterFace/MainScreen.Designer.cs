@@ -51,6 +51,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.btnAuditingScreen = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -152,6 +153,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.SteelBlue;
+            this.panel2.Controls.Add(this.btnAuditingScreen);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.btnDialyExpensesScreen);
             this.panel2.Controls.Add(this.btnSettings);
@@ -346,6 +348,21 @@
             this.imageList1.ImageSize = new System.Drawing.Size(32, 32);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // btnAuditingScreen
+            // 
+            this.btnAuditingScreen.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnAuditingScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAuditingScreen.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAuditingScreen.ForeColor = System.Drawing.Color.White;
+            this.btnAuditingScreen.Location = new System.Drawing.Point(4, 328);
+            this.btnAuditingScreen.Name = "btnAuditingScreen";
+            this.btnAuditingScreen.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnAuditingScreen.Size = new System.Drawing.Size(136, 41);
+            this.btnAuditingScreen.TabIndex = 9;
+            this.btnAuditingScreen.Text = "سجل التغييرات";
+            this.btnAuditingScreen.UseVisualStyleBackColor = false;
+            this.btnAuditingScreen.Click += new System.EventHandler(this.btnAuditingScreen_Click);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -404,6 +421,7 @@
         private System.Windows.Forms.Button btnDialyExpensesScreen;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAuditingScreen;
     }
 }
 

@@ -242,6 +242,7 @@ namespace CarTestLogicalLayer
                         if (_AddNewRating())
                         {
                             _Mood = enMood.Update;
+                            clsAuditHelper.LogInsert(this.ID, currentUserID, "تخمين مركبة");
                             return true;
                         }
                         else
@@ -249,8 +250,14 @@ namespace CarTestLogicalLayer
                             return false;
                         }
                     case enMood.Update:
+                        clsCarRating oldData = clsCarRating.GetCarInfoByIDForUpdate(this.ID);
                         ModifiedByUserID = currentUserID;
-                        return _UpdateRating();
+                        if (_UpdateRating())
+                        {
+                            clsAuditHelper.LogRatingChanges(oldData, this, currentUserID);
+                            return true;
+                        }
+                        return false;
 
                 }
                 return false;

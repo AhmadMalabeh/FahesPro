@@ -97,5 +97,11 @@ namespace CarTestUserInterFace
             frmChart chartForm = new frmChart();
             chartForm.Show();
         }
+
+        private void btnAuditingScreen_Click(object sender, EventArgs e)
+        {
+            frmAuditLog auditLogForm = new frmAuditLog(CurrentUser.UserID);
+            auditLogForm.Show();
+        }
     }
 }

@@ -225,7 +225,107 @@ namespace CarTestDataAccessLayer
             };
         }
 
-        
+        public static void AddAuditLog(clsSharedAuditLog log)
+        {
+            string query = @"INSERT INTO AuditLog 
+    (TableName, RecordID, FieldName, OldValue, 
+     NewValue, ActionType, ChangedByUserID, ChangedDate, EntryType)
+    VALUES 
+    (@TableName, @RecordID, @FieldName, @OldValue,
+     @NewValue, @ActionType, @ChangedByUserID, @ChangedDate, @EntryType)";
+
+            SqlParameter[] p = {
+        new SqlParameter("@TableName",       log.TableName),
+        new SqlParameter("@RecordID",        log.RecordID),
+        new SqlParameter("@FieldName",       log.FieldName),
+        new SqlParameter("@OldValue",        (object)log.OldValue       ?? DBNull.Value),
+        new SqlParameter("@NewValue",        (object)log.NewValue       ?? DBNull.Value),
+        new SqlParameter("@ActionType",      log.ActionType),
+        new SqlParameter("@ChangedByUserID", log.ChangedByUserID),
+        new SqlParameter("@ChangedDate",     log.ChangedDate),
+        new SqlParameter("@EntryType", (object)log.EntryType ?? DBNull.Value)
+    };
+
+            _ExecuteNonQuery(query, "AddAuditLog", p);
+        }
+
+        public static DataTable GetTodayAuditLogs()
+        {
+            string query = @"SELECT 
+                                al.RecordID,
+                                al.EntryType,
+                                al.FieldName,
+                                al.OldValue,
+                                al.NewValue,
+                                al.ActionType,
+                                u.UserName,
+                                al.ChangedDate
+                            FROM AuditLog al
+                            LEFT JOIN Users u ON al.ChangedByUserID = u.UserID
+                            where CAST(al.ChangedDate AS DATE) = CAST(GETDATE() AS DATE)
+                            ORDER BY al.LogID DESC ;";
+
+            return _ExecuteDataTable(query, "GetTodayAuditLogs");
+        }
+
+        public static DataTable GetAuditLogBetweenTwoDates(DateTime FromDate, DateTime ToDate)
+        {
+            string query = @"SELECT 
+                        al.RecordID,
+                        al.EntryType,
+                        al.FieldName,
+                        al.OldValue,
+                        al.NewValue,
+                        al.ActionType,
+                        u.UserName,
+                        al.ChangedDate
+                    FROM AuditLog al
+                    LEFT JOIN Users u ON al.ChangedByUserID = u.UserID
+                    WHERE al.ChangedDate >= @FromDate 
+                      AND al.ChangedDate < DATEADD(DAY, 1, @ToDate)
+                    ORDER BY al.LogID DESC";
+
+            SqlParameter[] p = {
+        new SqlParameter("@FromDate", FromDate.Date),
+        new SqlParameter("@ToDate",   ToDate.Date)
+             };
+
+            return _ExecuteDataTable(query, "GetAuditLogBetweenTwoDates", p);
+        }
+
+        public static DataTable GetAllAuditingLogByDate(DateTime Date)
+        {
+            string query = @"SELECT 
+                        al.RecordID,
+                        al.EntryType,
+                        al.FieldName,
+                        al.OldValue,
+                        al.NewValue,
+                        al.ActionType,
+                        u.UserName,
+                        al.ChangedDate
+                    FROM AuditLog al
+                    LEFT JOIN Users u ON al.ChangedByUserID = u.UserID
+                    WHERE CAST(al.ChangedDate AS DATE) = CAST(@Date AS DATE)
+                    ORDER BY al.LogID DESC";
+
+            SqlParameter[] p = {
+        new SqlParameter("@Date", Date.Date)
+            };
+
+            return _ExecuteDataTable(query, "GetAuditingLogByDate", p);
+        }
+
+        public static DataTable GetAllUsersForFilter()
+        {
+            string query = @"
+        SELECT -1 AS UserID, 'الكل' AS UserName
+        UNION ALL
+        SELECT UserID, UserName FROM Users
+        ORDER BY UserID";
+
+            return _ExecuteDataTable(query, "GetAllUsersForFilter");
+        }
 
         public static void CreateBackup(string backupFilePath)
         {
