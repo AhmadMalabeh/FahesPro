@@ -101,6 +101,12 @@ namespace CarTestUserInterFace
 
         private void btnAuditingScreen_Click(object sender, EventArgs e)
         {
+            if (!CurrentUser.IsAdmin)
+            {
+                MessageBox.Show("هذه الشاشة متاحة للمدير فقط", "غير مصرح",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             frmAuditLog auditLogForm = new frmAuditLog(CurrentUser.UserID);
             auditLogForm.Show();
         }
