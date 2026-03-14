@@ -51,6 +51,7 @@
             this.rdPayLatterReport = new System.Windows.Forms.RadioButton();
             this.btnPrevDate = new System.Windows.Forms.Button();
             this.btnNextDate = new System.Windows.Forms.Button();
+            this.rdoDebtSummary = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -82,7 +83,7 @@
             this.btntest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btntest.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btntest.ForeColor = System.Drawing.Color.White;
-            this.btntest.Location = new System.Drawing.Point(54, 381);
+            this.btntest.Location = new System.Drawing.Point(54, 419);
             this.btntest.Margin = new System.Windows.Forms.Padding(0);
             this.btntest.Name = "btntest";
             this.btntest.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -98,7 +99,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(434, 381);
+            this.btnClose.Location = new System.Drawing.Point(434, 419);
             this.btnClose.Margin = new System.Windows.Forms.Padding(0);
             this.btnClose.Name = "btnClose";
             this.btnClose.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -114,7 +115,7 @@
             this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrint.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrint.ForeColor = System.Drawing.Color.White;
-            this.btnPrint.Location = new System.Drawing.Point(54, 443);
+            this.btnPrint.Location = new System.Drawing.Point(54, 481);
             this.btnPrint.Margin = new System.Windows.Forms.Padding(0);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -231,6 +232,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rdoDebtSummary);
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Controls.Add(this.rdbPayLaterFromDateToDate);
@@ -240,7 +242,7 @@
             this.groupBox1.Location = new System.Drawing.Point(54, 216);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox1.Size = new System.Drawing.Size(558, 162);
+            this.groupBox1.Size = new System.Drawing.Size(558, 189);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "نوع التقرير";
@@ -329,12 +331,24 @@
             this.btnNextDate.UseVisualStyleBackColor = false;
             this.btnNextDate.Click += new System.EventHandler(this.btnNextDate_Click);
             // 
+            // rdoDebtSummary
+            // 
+            this.rdoDebtSummary.AutoSize = true;
+            this.rdoDebtSummary.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdoDebtSummary.Location = new System.Drawing.Point(367, 156);
+            this.rdoDebtSummary.Name = "rdoDebtSummary";
+            this.rdoDebtSummary.Size = new System.Drawing.Size(185, 20);
+            this.rdoDebtSummary.TabIndex = 5;
+            this.rdoDebtSummary.Text = "كشف الذمم حسب العميل";
+            this.rdoDebtSummary.UseVisualStyleBackColor = true;
+            this.rdoDebtSummary.CheckedChanged += new System.EventHandler(this.rdoDebtSummary_CheckedChanged);
+            // 
             // frmReports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.ClientSize = new System.Drawing.Size(657, 509);
+            this.ClientSize = new System.Drawing.Size(657, 534);
             this.Controls.Add(this.btnNextDate);
             this.Controls.Add(this.btnPrevDate);
             this.Controls.Add(this.groupBox1);
@@ -391,5 +405,6 @@
         private System.Windows.Forms.RadioButton rdbPayLaterFromDateToDate;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rdoDebtSummary;
     }
 }

@@ -22,7 +22,8 @@ namespace CarTestUserInterFace
             PayLaterByCustomer,                 // تقرير ذمم حسب اسم مشتري
             PayLaterFromDateToDate,             // تقرير الذمم من تاريخ إلى تاريخ
             TestsAndFinancial,                  // فحوصات + مصاريف (مالي عام)
-            FinancialOnly                       // مصاريف فقط
+            FinancialOnly,                      // مصاريف فقط
+            DebtSummaryByCustomer
         }
 
         // =========================
@@ -423,6 +424,119 @@ namespace CarTestUserInterFace
                 $"إجمالي الذمم: {totalLater:N2}\n\n" +
                 $"إجمالي المصاريف: {expenses:N2}\n" +
                 $"الصافي: {(totalRevenue - expenses):N2}\n";
+        }
+        public MemoryStream CreateDebtSummaryReport(DataTable dtDebt)
+        {
+            PdfDocument document = new PdfDocument();
+
+            try
+            {
+                document.PageSettings.Orientation = PdfPageOrientation.Portrait;
+                float margin = MmToPoint(10);
+
+                PdfFont titleFont = CreateFont(14);
+                PdfFont tableFont = CreateFont(10);
+                PdfFont footerFont = CreateFont(9);
+                PdfFont summaryFont = CreateFont(11);
+
+                PdfStringFormat rtlCenter = new PdfStringFormat
+                {
+                    TextDirection = PdfTextDirection.RightToLeft,
+                    Alignment = PdfTextAlignment.Center
+                };
+                PdfStringFormat rtlRight = new PdfStringFormat
+                {
+                    TextDirection = PdfTextDirection.RightToLeft,
+                    Alignment = PdfTextAlignment.Right
+                };
+
+                // ===== Header =====
+                PdfPageTemplateElement header =
+                    new PdfPageTemplateElement(document.PageSettings.Width, 50);
+
+                header.Graphics.DrawString(
+                    "كشف الذمم المالية — ملخص حسب العميل",
+                    titleFont, PdfBrushes.Black,
+                    new RectangleF(0, 8, header.Width, 25), rtlCenter);
+
+                header.Graphics.DrawString(
+                    "تاريخ الطباعة: " + DateTime.Today.ToString("yyyy/MM/dd"),
+                    CreateFont(9), PdfBrushes.Black,
+                    new RectangleF(0, 30, header.Width, 16), rtlCenter);
+
+                document.Template.Top = header;
+
+                // ===== Footer =====
+                PdfPageTemplateElement footer =
+                    new PdfPageTemplateElement(document.PageSettings.Width, 30);
+                PdfPageNumberField pageNumber = new PdfPageNumberField(footerFont, PdfBrushes.Black);
+                PdfPageCountField pageCount = new PdfPageCountField(footerFont, PdfBrushes.Black);
+                PdfCompositeField pageField = new PdfCompositeField(
+                    footerFont, PdfBrushes.Black, "الصفحة {0} من {1}", pageNumber, pageCount);
+                pageField.StringFormat = rtlCenter;
+                pageField.Draw(footer.Graphics, new PointF(0, 8));
+                document.Template.Bottom = footer;
+
+                // ===== Page =====
+                PdfPage page = document.Pages.Add();
+
+                // ===== بناء جدول RTL =====
+                DataTable rtlTable = new DataTable();
+                rtlTable.Columns.Add("إجمالي المبلغ المستحق");
+                rtlTable.Columns.Add("عدد المركبات");
+                rtlTable.Columns.Add("اسم العميل");
+
+                double grandTotal = 0;
+                int totalCars = 0;
+
+                foreach (DataRow row in dtDebt.Rows)
+                {
+                    rtlTable.Rows.Add(
+                        row["إجمالي المبلغ المستحق"].ToString(),
+                        row["عدد المركبات"].ToString(),
+                        row["اسم العميل"].ToString()
+                    );
+                    grandTotal += Convert.ToDouble(row["إجمالي المبلغ المستحق"]);
+                    totalCars += Convert.ToInt32(row["عدد المركبات"]);
+                }
+
+                // ===== Grid =====
+                PdfGrid grid = new PdfGrid();
+                grid.DataSource = rtlTable;
+                _ApplyGridStyle(grid, tableFont, rtlRight);
+
+                PdfLayoutResult result = grid.Draw(page, new PointF(margin, 10));
+
+                // ===== سطر الإجماليات =====
+                float ySum = result.Bounds.Bottom + 20;
+                PdfPage summaryPage = result.Page;
+
+                if (ySum > summaryPage.GetClientSize().Height - 60)
+                {
+                    summaryPage = document.Pages.Add();
+                    ySum = 20;
+                }
+
+                string summaryText =
+                    $"إجمالي عدد المركبات: {totalCars}        " +
+                    $"إجمالي المبالغ المستحقة: {grandTotal:N2} دينار";
+
+                summaryPage.Graphics.DrawString(
+                    summaryText, summaryFont, PdfBrushes.Black,
+                    new RectangleF(margin, ySum,
+                        summaryPage.GetClientSize().Width - margin * 2, 20),
+                    rtlRight);
+
+                // ===== Save =====
+                MemoryStream outStream = new MemoryStream();
+                document.Save(outStream);
+                outStream.Position = 0;
+                return outStream;
+            }
+            finally
+            {
+                try { document.Close(true); } catch { }
+            }
         }
     }
 }

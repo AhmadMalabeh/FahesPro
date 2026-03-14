@@ -31,7 +31,8 @@ namespace CarTestUserInterFace
             ReportForPayLaterTests,
             ReportPayLatterFromDateToDate,
             TestsAndFinancialReport, // الخيار الرابع
-            FinancialOnlyReport      // الخيار الخامس
+            FinancialOnlyReport,      // الخيار الخامس
+            DebtSummaryByCustomer
         };
 
         enMode Mode;
@@ -84,6 +85,25 @@ namespace CarTestUserInterFace
                 case enMode.FinancialOnlyReport:
                     _dtExpensesResult = clsDialyExpenses.GetAllExpensesBettwenTowDates(DTFrom.Value.Date, DTTo.Value.Date);
                     break;
+                case enMode.DebtSummaryByCustomer:
+                    _dtResult = clsCarTest.GetDebtSummaryByCustomer();
+
+                    if (_dtResult != null && _dtResult.Rows.Count > 0)
+                    {
+                        int totalCars = 0;
+                        double grandTotal = 0;
+
+                        foreach (DataRow row in _dtResult.Rows)
+                        {
+                            totalCars += Convert.ToInt32(row["عدد المركبات"]);
+                            grandTotal += Convert.ToDouble(row["إجمالي المبلغ المستحق"]);
+                        }
+
+                        txtTestsSum.Text = totalCars.ToString();
+                        txtPriceSum.Text = grandTotal.ToString("N2");
+                        btnPrint.Enabled = true;
+                    }
+                    return; // ← مهم جداً — يمنع استدعاء FillFieldsWithData بعده
             }
 
             FillFieldsWithData(_dtResult);
@@ -94,6 +114,28 @@ namespace CarTestUserInterFace
         {
             clsPrintSummaryReport summaryPrinter = new clsPrintSummaryReport();
 
+            // ===== معالجة تقرير ملخص الذمم بشكل منفصل =====
+            if (Mode == enMode.DebtSummaryByCustomer)
+            {
+                if (_dtResult == null || _dtResult.Rows.Count == 0)
+                {
+                    MessageBox.Show("لا توجد ذمم مالية حالياً", "تنبيه",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                MemoryStream debtMs = summaryPrinter.CreateDebtSummaryReport(_dtResult);
+                if (debtMs == null) return;
+
+                using (debtMs)
+                using (frmPreview preview = new frmPreview(debtMs))
+                {
+                    preview.ShowDialog();
+                }
+                return;
+            }
+
+            // ===== باقي التقارير =====
             string title = "تقرير فحص المركبات";
             clsPrintSummaryReport.ReportType reportType = clsPrintSummaryReport.ReportType.InspectionsFromDateToDate;
 
@@ -125,7 +167,8 @@ namespace CarTestUserInterFace
                     break;
             }
 
-            MemoryStream ms = summaryPrinter.CreateCustomReportStream(_dtResult, _dtExpensesResult, title, reportType);
+            MemoryStream ms = summaryPrinter.CreateCustomReportStream(
+                _dtResult, _dtExpensesResult, title, reportType);
 
             if (ms == null) return;
 
@@ -144,7 +187,13 @@ namespace CarTestUserInterFace
         private void rdbPayLaterFromDateToDate_CheckedChanged(object sender, EventArgs e) { Mode = enMode.ReportPayLatterFromDateToDate; cmbCustumerName.Enabled = false; }
         private void rbTestsAndFinancial_CheckedChanged(object sender, EventArgs e) { Mode = enMode.TestsAndFinancialReport; cmbCustumerName.Enabled = false; }
         private void rbFinancialOnly_CheckedChanged(object sender, EventArgs e) { Mode = enMode.FinancialOnlyReport; cmbCustumerName.Enabled = false; }
-
+        private void rdoDebtSummary_CheckedChanged(object sender, EventArgs e)
+        {
+            Mode = enMode.DebtSummaryByCustomer;
+            cmbCustumerName.Enabled = false;
+            DTFrom.Enabled = false;
+            DTTo.Enabled = false;
+        }
         private void btnClose_Click(object sender, EventArgs e) => this.Close();
 
         private void frmReports_Load(object sender, EventArgs e)

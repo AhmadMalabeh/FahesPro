@@ -572,7 +572,20 @@ namespace CarTestDataAccessLayer
         }
 
 
+        public static DataTable GetDebtSummaryByCustomer()
+        {
+            string query = @"
+        SELECT 
+            RatBuyer1           AS [اسم العميل],
+            COUNT(*)            AS [عدد المركبات],
+            SUM(Voucher1)       AS [إجمالي المبلغ المستحق]
+        FROM Car_Rating_Testing01
+        WHERE RatPayLatter1 = 1
+        GROUP BY RatBuyer1
+        ORDER BY SUM(Voucher1) DESC";
 
+            return _ExecuteDataTable(query, "GetDebtSummaryByCustomer");
+        }
 
         public static DataTable GetIssueByMinuID(int MinuID)
         {

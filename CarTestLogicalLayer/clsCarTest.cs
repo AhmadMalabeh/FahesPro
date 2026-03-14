@@ -307,6 +307,10 @@ namespace CarTestLogicalLayer
         {
             return clsTestData.GetPayLatterTestsFromDateToDate(dtFrom, dtTo);
         }
-        
+        public static DataTable GetDebtSummaryByCustomer()
+        {
+            return clsTestData.GetDebtSummaryByCustomer();
+        }
+
     }
 }
