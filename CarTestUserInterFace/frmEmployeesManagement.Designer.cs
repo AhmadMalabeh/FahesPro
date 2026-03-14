@@ -156,11 +156,11 @@
             // 
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(408, 104);
+            this.lblStatus.Location = new System.Drawing.Point(453, 104);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(96, 19);
+            this.lblStatus.Size = new System.Drawing.Size(42, 19);
             this.lblStatus.TabIndex = 11;
-            this.lblStatus.Text = "حالة الموظف";
+            this.lblStatus.Text = "جديد";
             // 
             // label6
             // 
@@ -276,6 +276,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtFullName);
             this.Controls.Add(this.dgvEmployees);
+            this.MaximizeBox = false;
             this.Name = "frmEmployeesManagement";
             this.Text = "frmEmployeesManagement";
             this.Load += new System.EventHandler(this.frmEmployeesManagement_Load);

@@ -277,6 +277,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.dgvUsers);
+            this.MinimizeBox = false;
             this.Name = "frmUsersManagement";
             this.Text = "frmUsersManagement";
             this.Load += new System.EventHandler(this.frmUsersManagement_Load);
