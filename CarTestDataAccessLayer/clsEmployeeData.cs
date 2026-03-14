@@ -19,6 +19,20 @@ namespace CarTestDataAccessLayer
             return _ExecuteDataTable(query, "GetAllEmployees");
         }
 
+        public static bool ReactivateEmployee(int employeeID)
+        {
+            string query = @"UPDATE Employees
+                     SET IsActive        = 1,
+                         TerminationDate = NULL
+                     WHERE EmployeeID = @EmployeeID";
+
+            SqlParameter[] p = {
+        new SqlParameter("@EmployeeID", employeeID)
+    };
+
+            return _ExecuteNonQuery(query, "ReactivateEmployee", p);
+        }
+
         public static DataTable GetActiveEmployees()
         {
             string query = @"SELECT EmployeeID, FullName, NationalID,

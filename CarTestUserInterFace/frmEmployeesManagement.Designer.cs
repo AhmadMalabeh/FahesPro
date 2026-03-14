@@ -55,10 +55,10 @@
             // 
             this.dgvEmployees.BackgroundColor = System.Drawing.Color.White;
             this.dgvEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmployees.Location = new System.Drawing.Point(12, 261);
+            this.dgvEmployees.Location = new System.Drawing.Point(12, 223);
             this.dgvEmployees.Name = "dgvEmployees";
             this.dgvEmployees.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.dgvEmployees.Size = new System.Drawing.Size(959, 190);
+            this.dgvEmployees.Size = new System.Drawing.Size(959, 228);
             this.dgvEmployees.TabIndex = 0;
             // 
             // txtFullName
@@ -136,10 +136,10 @@
             // dtpHireDate
             // 
             this.dtpHireDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpHireDate.Location = new System.Drawing.Point(400, 71);
+            this.dtpHireDate.Location = new System.Drawing.Point(418, 71);
             this.dtpHireDate.Name = "dtpHireDate";
             this.dtpHireDate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.dtpHireDate.Size = new System.Drawing.Size(106, 20);
+            this.dtpHireDate.Size = new System.Drawing.Size(86, 20);
             this.dtpHireDate.TabIndex = 9;
             // 
             // label5

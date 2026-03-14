@@ -12,5 +12,6 @@ namespace SharedObj
         public string Password { get; set; }
         public int UserID { get; set; }
         public bool IsAdmin { get; set; }
+        public bool IsActive { get; set; }
     }
 }

@@ -30,16 +30,20 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnReports = new System.Windows.Forms.Button();
+            this.btnSearchScreen = new System.Windows.Forms.Button();
             this.btnAddNewEvaluationScreen = new System.Windows.Forms.Button();
             this.btnAddNewTestScreen = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnEmployees = new System.Windows.Forms.Button();
             this.btnAuditingScreen = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnDialyExpensesScreen = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.lbUserName = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lbCurrentDate = new System.Windows.Forms.Label();
@@ -49,16 +53,13 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnReports = new System.Windows.Forms.Button();
-            this.btnSearchScreen = new System.Windows.Forms.Button();
-            this.btnEmployees = new System.Windows.Forms.Button();
+            this.btnUsersScreen = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,6 +76,40 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(195, 639);
             this.panel1.TabIndex = 0;
+            // 
+            // btnReports
+            // 
+            this.btnReports.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReports.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReports.ForeColor = System.Drawing.Color.White;
+            this.btnReports.Image = global::CarTestUserInterFace.Properties.Resources.Multyreport;
+            this.btnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReports.Location = new System.Drawing.Point(9, 456);
+            this.btnReports.Name = "btnReports";
+            this.btnReports.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnReports.Size = new System.Drawing.Size(178, 74);
+            this.btnReports.TabIndex = 4;
+            this.btnReports.Text = "التقارير";
+            this.btnReports.UseVisualStyleBackColor = false;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
+            // 
+            // btnSearchScreen
+            // 
+            this.btnSearchScreen.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnSearchScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchScreen.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchScreen.ForeColor = System.Drawing.Color.White;
+            this.btnSearchScreen.Image = global::CarTestUserInterFace.Properties.Resources.search;
+            this.btnSearchScreen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearchScreen.Location = new System.Drawing.Point(9, 341);
+            this.btnSearchScreen.Name = "btnSearchScreen";
+            this.btnSearchScreen.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnSearchScreen.Size = new System.Drawing.Size(178, 74);
+            this.btnSearchScreen.TabIndex = 3;
+            this.btnSearchScreen.Text = "البحث";
+            this.btnSearchScreen.UseVisualStyleBackColor = false;
+            this.btnSearchScreen.Click += new System.EventHandler(this.btnSearchScreen_Click);
             // 
             // btnAddNewEvaluationScreen
             // 
@@ -120,6 +155,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.SteelBlue;
+            this.panel2.Controls.Add(this.btnUsersScreen);
             this.panel2.Controls.Add(this.btnEmployees);
             this.panel2.Controls.Add(this.btnAuditingScreen);
             this.panel2.Controls.Add(this.button1);
@@ -134,6 +170,21 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(146, 639);
             this.panel2.TabIndex = 1;
+            // 
+            // btnEmployees
+            // 
+            this.btnEmployees.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnEmployees.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEmployees.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEmployees.ForeColor = System.Drawing.Color.White;
+            this.btnEmployees.Location = new System.Drawing.Point(4, 271);
+            this.btnEmployees.Name = "btnEmployees";
+            this.btnEmployees.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnEmployees.Size = new System.Drawing.Size(136, 41);
+            this.btnEmployees.TabIndex = 10;
+            this.btnEmployees.Text = "الموظفين";
+            this.btnEmployees.UseVisualStyleBackColor = false;
+            this.btnEmployees.Click += new System.EventHandler(this.btnEmployees_Click);
             // 
             // btnAuditingScreen
             // 
@@ -221,6 +272,16 @@
             this.label4.Size = new System.Drawing.Size(138, 23);
             this.label4.TabIndex = 6;
             this.label4.Text = "Current User:";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CarTestUserInterFace.Properties.Resources.Larg_Person_Icon;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(137, 133);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
             // btnLogOut
             // 
@@ -321,64 +382,20 @@
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
             // 
-            // pictureBox1
+            // btnUsersScreen
             // 
-            this.pictureBox1.Image = global::CarTestUserInterFace.Properties.Resources.Larg_Person_Icon;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(137, 133);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            // 
-            // btnReports
-            // 
-            this.btnReports.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReports.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReports.ForeColor = System.Drawing.Color.White;
-            this.btnReports.Image = global::CarTestUserInterFace.Properties.Resources.Multyreport;
-            this.btnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReports.Location = new System.Drawing.Point(9, 456);
-            this.btnReports.Name = "btnReports";
-            this.btnReports.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnReports.Size = new System.Drawing.Size(178, 74);
-            this.btnReports.TabIndex = 4;
-            this.btnReports.Text = "التقارير";
-            this.btnReports.UseVisualStyleBackColor = false;
-            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
-            // 
-            // btnSearchScreen
-            // 
-            this.btnSearchScreen.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnSearchScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearchScreen.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearchScreen.ForeColor = System.Drawing.Color.White;
-            this.btnSearchScreen.Image = global::CarTestUserInterFace.Properties.Resources.search;
-            this.btnSearchScreen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearchScreen.Location = new System.Drawing.Point(9, 341);
-            this.btnSearchScreen.Name = "btnSearchScreen";
-            this.btnSearchScreen.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnSearchScreen.Size = new System.Drawing.Size(178, 74);
-            this.btnSearchScreen.TabIndex = 3;
-            this.btnSearchScreen.Text = "البحث";
-            this.btnSearchScreen.UseVisualStyleBackColor = false;
-            this.btnSearchScreen.Click += new System.EventHandler(this.btnSearchScreen_Click);
-            // 
-            // btnEmployees
-            // 
-            this.btnEmployees.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnEmployees.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEmployees.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEmployees.ForeColor = System.Drawing.Color.White;
-            this.btnEmployees.Location = new System.Drawing.Point(4, 271);
-            this.btnEmployees.Name = "btnEmployees";
-            this.btnEmployees.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnEmployees.Size = new System.Drawing.Size(136, 41);
-            this.btnEmployees.TabIndex = 10;
-            this.btnEmployees.Text = "الموظفين";
-            this.btnEmployees.UseVisualStyleBackColor = false;
-            this.btnEmployees.Click += new System.EventHandler(this.btnEmployees_Click);
+            this.btnUsersScreen.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnUsersScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUsersScreen.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUsersScreen.ForeColor = System.Drawing.Color.White;
+            this.btnUsersScreen.Location = new System.Drawing.Point(6, 210);
+            this.btnUsersScreen.Name = "btnUsersScreen";
+            this.btnUsersScreen.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnUsersScreen.Size = new System.Drawing.Size(136, 41);
+            this.btnUsersScreen.TabIndex = 11;
+            this.btnUsersScreen.Text = "المستخدمين";
+            this.btnUsersScreen.UseVisualStyleBackColor = false;
+            this.btnUsersScreen.Click += new System.EventHandler(this.btnUsersScreen_Click);
             // 
             // MainScreen
             // 
@@ -404,11 +421,11 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -440,6 +457,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAuditingScreen;
         private System.Windows.Forms.Button btnEmployees;
+        private System.Windows.Forms.Button btnUsersScreen;
     }
 }
 

@@ -117,5 +117,18 @@ namespace CarTestUserInterFace
             frmEmployeesManagement employeesForm = new frmEmployeesManagement();
             employeesForm.Show();
         }
+
+        private void btnUsersScreen_Click(object sender, EventArgs e)
+        {
+            if (!CurrentUser.IsAdmin)
+            {
+                MessageBox.Show("هذه الشاشة متاحة للمدير فقط", "غير مصرح",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            frmUsersManagement usersForm = new frmUsersManagement(CurrentUser.UserID);
+            usersForm.Show();
+        }
     }
 }

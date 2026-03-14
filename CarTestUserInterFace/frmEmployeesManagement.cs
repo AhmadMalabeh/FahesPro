@@ -110,7 +110,11 @@ namespace CarTestUI
 
                 case enFormMode.Update:
                     btnSave.Text = "تعديل";
-                    btnDeactivate.Enabled = _Employee.IsActive;
+                    btnDeactivate.Enabled = true;
+                    btnDeactivate.Text = _Employee.IsActive ? "إنهاء الخدمة" : "إعادة التوظيف";
+                    btnDeactivate.BackColor = _Employee.IsActive
+                                              ? Color.FromArgb(200, 80, 80)   // أحمر — إنهاء
+                                              : Color.FromArgb(80, 160, 80);  // أخضر — إعادة
                     break;
             }
         }
@@ -167,24 +171,50 @@ namespace CarTestUI
 
         private void btnDeactivate_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(
-                $"هل أنت متأكد من إنهاء خدمة الموظف: {_Employee.FullName}؟",
-                "تأكيد",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (_Employee.IsActive)
             {
-                if (_Employee.Deactivate())
+                // إنهاء الخدمة
+                if (MessageBox.Show(
+                    $"هل أنت متأكد من إنهاء خدمة الموظف: {_Employee.FullName}؟",
+                    "تأكيد", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    MessageBox.Show("تم إنهاء الخدمة بنجاح", "نجاح",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    _LoadEmployees();
-                    _FillFields();
-                    btnDeactivate.Enabled = false;
+                    if (_Employee.Deactivate())
+                    {
+                        MessageBox.Show("تم إنهاء الخدمة بنجاح", "نجاح",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _LoadEmployees();
+                        _FillFields();
+                        _SetFormMode(enFormMode.Update);
+                    }
+                    else
+                    {
+                        MessageBox.Show(_Employee.ErrorMessage, "خطأ",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
-                else
+            }
+            else
+            {
+                // إعادة التوظيف
+                if (MessageBox.Show(
+                    $"هل أنت متأكد من إعادة توظيف: {_Employee.FullName}؟",
+                    "تأكيد", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    MessageBox.Show(_Employee.ErrorMessage, "خطأ",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (_Employee.Reactivate())
+                    {
+                        MessageBox.Show("تم إعادة التوظيف بنجاح", "نجاح",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _LoadEmployees();
+                        _FillFields();
+                        _SetFormMode(enFormMode.Update);
+                    }
+                    else
+                    {
+                        MessageBox.Show(_Employee.ErrorMessage, "خطأ",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
         }

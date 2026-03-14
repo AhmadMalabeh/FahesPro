@@ -225,6 +225,8 @@ namespace CarTestDataAccessLayer
             };
         }
 
+
+
         public static void AddAuditLog(clsSharedAuditLog log)
         {
             string query = @"INSERT INTO AuditLog 
@@ -346,7 +348,9 @@ namespace CarTestDataAccessLayer
         public static clsSharedclsUsers GetUserInfoByUserNameAndPassword(string UserName, string Password)
         {
             string Query = @"select * from Users
-                     where UserName = @UserName and Password = @Password";
+                     where UserName  = @UserName 
+                     and   Password  = @Password
+                     and   IsActive  = 1";
 
             SqlParameter[] p = {
         new SqlParameter("@UserName", UserName),
@@ -359,9 +363,123 @@ namespace CarTestDataAccessLayer
                     UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
                     UserName = reader["UserName"].ToString(),
                     Password = reader["Password"].ToString(),
-                    IsAdmin = reader["IsAdmin"] != DBNull.Value &&
-                               Convert.ToBoolean(reader["IsAdmin"])
+                    IsAdmin = reader["IsAdmin"] != DBNull.Value && Convert.ToBoolean(reader["IsAdmin"]),
+                    IsActive = reader["IsActive"] != DBNull.Value && Convert.ToBoolean(reader["IsActive"])
                 });
+        }
+
+        public static DataTable GetAllUsers()
+        {
+            string query = @"SELECT UserID, UserName, IsAdmin, IsActive
+                     FROM Users
+                     ORDER BY UserID";
+
+            return _ExecuteDataTable(query, "GetAllUsers");
+        }
+
+        public static int AddNewUser(clsSharedclsUsers dto)
+        {
+            string query = @"INSERT INTO Users (UserName, Password, IsAdmin, IsActive)
+                     VALUES (@UserName, @Password, @IsAdmin, 1);
+                     SELECT SCOPE_IDENTITY();";
+
+            SqlParameter[] p = {
+        new SqlParameter("@UserName", dto.UserName),
+        new SqlParameter("@Password", dto.Password),
+        new SqlParameter("@IsAdmin",  dto.IsAdmin)
+    };
+
+            return _ExecuteScalar(query, "AddNewUser", p);
+        }
+
+        public static bool UpdateUser(clsSharedclsUsers dto)
+        {
+            string query = @"UPDATE Users
+                     SET UserName = @UserName,
+                         IsAdmin  = @IsAdmin
+                     WHERE UserID = @UserID";
+
+            SqlParameter[] p = {
+        new SqlParameter("@UserID",   dto.UserID),
+        new SqlParameter("@UserName", dto.UserName),
+        new SqlParameter("@IsAdmin",  dto.IsAdmin)
+    };
+
+            return _ExecuteNonQuery(query, "UpdateUser", p);
+        }
+
+        public static bool ChangePassword(int userID, string newPassword)
+        {
+            string query = @"UPDATE Users
+                     SET Password = @Password
+                     WHERE UserID = @UserID";
+
+            SqlParameter[] p = {
+        new SqlParameter("@UserID",   userID),
+        new SqlParameter("@Password", newPassword)
+    };
+
+            return _ExecuteNonQuery(query, "ChangePassword", p);
+        }
+
+        public static bool SetUserActiveStatus(int userID, bool isActive)
+        {
+            string query = @"UPDATE Users
+                     SET IsActive = @IsActive
+                     WHERE UserID = @UserID";
+
+            SqlParameter[] p = {
+        new SqlParameter("@UserID",   userID),
+        new SqlParameter("@IsActive", isActive)
+    };
+
+            return _ExecuteNonQuery(query, "SetUserActiveStatus", p);
+        }
+
+        public static bool SetAdminStatus(int userID, bool isAdmin)
+        {
+            string query = @"UPDATE Users
+                     SET IsAdmin = @IsAdmin
+                     WHERE UserID = @UserID";
+
+            SqlParameter[] p = {
+        new SqlParameter("@UserID",  userID),
+        new SqlParameter("@IsAdmin", isAdmin)
+    };
+
+            return _ExecuteNonQuery(query, "SetAdminStatus", p);
+        }
+
+        public static bool IsUserNameExist(string userName, int excludeUserID = -1)
+        {
+            string query = @"SELECT COUNT(*) FROM Users
+                     WHERE UserName = @UserName
+                     AND   UserID  != @ExcludeID";
+
+            SqlParameter[] p = {
+        new SqlParameter("@UserName",  userName),
+        new SqlParameter("@ExcludeID", excludeUserID)
+    };
+
+            int count = 0;
+            using (SqlConnection connection = new SqlConnection(
+                       clsDataAccessLayerSettings.connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddRange(p);
+                try
+                {
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    if (result != null) count = Convert.ToInt32(result);
+                }
+                catch (Exception ex)
+                {
+                    clsLogger.LogError(ex, "DAL -> IsUserNameExist");
+                    throw;
+                }
+            }
+            return count > 0;
         }
 
 

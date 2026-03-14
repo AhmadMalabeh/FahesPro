@@ -112,7 +112,31 @@ namespace CarTestLogicalLayer
             return clsEmployeeData.UpdateEmployee(_ToDTO());
         }
 
+        public bool Reactivate()
+        {
+            if (_Mood == enMood.AddNew)
+            {
+                ErrorMessage = "لا يمكن إعادة توظيف موظف غير محفوظ";
+                return false;
+            }
+
+            if (IsActive)
+            {
+                ErrorMessage = "الموظف نشط مسبقاً";
+                return false;
+            }
+
+            if (clsEmployeeData.ReactivateEmployee(EmployeeID))
+            {
+                IsActive = true;
+                TerminationDate = null;
+                return true;
+            }
+
+            return false;
+        }
         // ===== Public Static Methods =====
+
 
         public static clsEmployee GetByID(int employeeID)
         {
