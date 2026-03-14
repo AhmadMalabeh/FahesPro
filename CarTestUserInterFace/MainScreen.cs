@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CarTestLogicalLayer;
+using CarTestUI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CarTestLogicalLayer;
 namespace CarTestUserInterFace
 {
     public partial class MainScreen : Form
@@ -102,6 +103,19 @@ namespace CarTestUserInterFace
         {
             frmAuditLog auditLogForm = new frmAuditLog(CurrentUser.UserID);
             auditLogForm.Show();
+        }
+
+        private void btnEmployees_Click(object sender, EventArgs e)
+        {
+            if (!CurrentUser.IsAdmin)
+            {
+                MessageBox.Show("هذه الشاشة متاحة للمدير فقط", "غير مصرح",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            frmEmployeesManagement employeesForm = new frmEmployeesManagement();
+            employeesForm.Show();
         }
     }
 }

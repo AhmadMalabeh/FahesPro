@@ -51,6 +51,7 @@
     <Compile Include="clsClient.cs" />
     <Compile Include="clsCoumputersInfo.cs" />
     <Compile Include="clsDialyExpenses.cs" />
+    <Compile Include="clsEmployee.cs" />
     <Compile Include="clsJordanianCurrencyToWords.cs" />
     <Compile Include="clsTools.cs" />
     <Compile Include="clsUsers.cs" />

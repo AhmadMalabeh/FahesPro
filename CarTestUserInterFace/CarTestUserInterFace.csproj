@@ -109,6 +109,12 @@
     <Compile Include="frmChart.Designer.cs">
       <DependentUpon>frmChart.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEmployeesManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmployeesManagement.Designer.cs">
+      <DependentUpon>frmEmployeesManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmExpensesManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmChart.resx">
       <DependentUpon>frmChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmployeesManagement.resx">
+      <DependentUpon>frmEmployeesManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmExpensesManagement.resx">
       <DependentUpon>frmExpensesManagement.cs</DependentUpon>

@@ -346,20 +346,25 @@ namespace CarTestDataAccessLayer
         public static clsSharedclsUsers GetUserInfoByUserNameAndPassword(string UserName, string Password)
         {
             string Query = @"select * from Users
-                                     where UserName =  @UserName and Password = @Password";
-            SqlParameter[] p = { 
-                new SqlParameter("@UserName", UserName),
-                new SqlParameter("@Password", Password)
-            }; 
-            return _GetSingleItem(Query, "GetUserInfoByUserNameAndPassword", p, reader => new clsSharedclsUsers
-            {
-                UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
-                UserName = reader["UserName"].ToString(),
-                Password = reader["Password"].ToString()
-            });
+                     where UserName = @UserName and Password = @Password";
+
+            SqlParameter[] p = {
+        new SqlParameter("@UserName", UserName),
+        new SqlParameter("@Password", Password)
+    };
+
+            return _GetSingleItem(Query, "GetUserInfoByUserNameAndPassword", p,
+                reader => new clsSharedclsUsers
+                {
+                    UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
+                    UserName = reader["UserName"].ToString(),
+                    Password = reader["Password"].ToString(),
+                    IsAdmin = reader["IsAdmin"] != DBNull.Value &&
+                               Convert.ToBoolean(reader["IsAdmin"])
+                });
         }
-        
-        
+
+
         public static DataTable GetAllTests()
         {
             string Query = @"SELECT 
