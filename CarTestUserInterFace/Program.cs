@@ -14,44 +14,12 @@ namespace CarTestUserInterFace
         /// </summary>
         /// 
 
-        public static string GetCpuId()
-        {
-            using (var searcher = new ManagementObjectSearcher(
-                "SELECT ProcessorId FROM Win32_Processor"))
-            {
-                foreach (ManagementObject obj in searcher.Get())
-                    return obj["ProcessorId"]?.ToString()?.Trim() ?? "";
-            }
-            return "";
-        }
-
-        public static string GetMotherboardSerial()
-        {
-            using (var searcher = new ManagementObjectSearcher(
-                "SELECT SerialNumber FROM Win32_BaseBoard"))
-            {
-                foreach (ManagementObject obj in searcher.Get())
-                    return obj["SerialNumber"]?.ToString()?.Trim() ?? "";
-            }
-            return "";
-        }
         [STAThread]
         static void Main()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjGyl/VkR+XU9Ff1RDX3xKf0x/TGpQb19xflBPallYVBYiSV9jS3hTdEVmWH5dcHVdRWlcWU91XQ==");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("YOUR_SYNCFUSION_LICENSE_KEY_HERE");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            clsCoumputersInfo coumputersInfo = new clsCoumputersInfo();
-            string cpuId = GetCpuId();
-            string motherboardId = GetMotherboardSerial();
-
-            if (!clsCoumputersInfo.IsValidComputer(cpuId, motherboardId))
-            {
-                MessageBox.Show("This computer is not authorized to run this application.", "Unauthorized Computer", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; // نخرج من البرنامج إذا لم يكن الكمبيوتر مصرحًا له
-            }
-
 
             frmLogInScreen loginForm = new frmLogInScreen();
 
