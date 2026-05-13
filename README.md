@@ -52,6 +52,7 @@ To run this project locally on your machine, please follow these steps:
 **5. Build and Run:**
 * Clean and Build the solution to restore any missing NuGet packages.
 * Press `F5` or click "Start" to run the application.
+* The UserName is 'admin' and the Password is '1234'
 
 ### 📸 **Screenshots**
 
