@@ -92,7 +92,7 @@ namespace CarTestLogicalLayer
                 return false;
             }
 
-            if (HireDate > DateTime.Today)
+            if (HireDate.Date > DateTime.Today)
             {
                 ErrorMessage = "تاريخ التوظيف لا يمكن أن يكون في المستقبل";
                 return false;

@@ -17,7 +17,7 @@ namespace CarTestUserInterFace
         [STAThread]
         static void Main()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("YOUR_SYNCFUSION_LICENSE_KEY_HERE");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjGyl/VkV+XU9AclRDX3xKf0x/TGpQb19xflBPallYVBYiSV9jS3hTc0RlWXhacXdcQGJVUU91XA==");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

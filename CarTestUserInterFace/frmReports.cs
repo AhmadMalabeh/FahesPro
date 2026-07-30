@@ -182,11 +182,11 @@ namespace CarTestUserInterFace
 
 
         // ربط الـ RadioButtons بالأوضاع (Modes)
-        private void rdDateToDateReport_CheckedChanged(object sender, EventArgs e) { Mode = enMode.ReportFromDateToDate; cmbCustumerName.Enabled = false; }
-        private void rdPayLatterReport_CheckedChanged(object sender, EventArgs e) { Mode = enMode.ReportForPayLaterTests; cmbCustumerName.Enabled = true; }
-        private void rdbPayLaterFromDateToDate_CheckedChanged(object sender, EventArgs e) { Mode = enMode.ReportPayLatterFromDateToDate; cmbCustumerName.Enabled = false; }
-        private void rbTestsAndFinancial_CheckedChanged(object sender, EventArgs e) { Mode = enMode.TestsAndFinancialReport; cmbCustumerName.Enabled = false; }
-        private void rbFinancialOnly_CheckedChanged(object sender, EventArgs e) { Mode = enMode.FinancialOnlyReport; cmbCustumerName.Enabled = false; }
+        private void rdDateToDateReport_CheckedChanged(object sender, EventArgs e) { Mode = enMode.ReportFromDateToDate; cmbCustumerName.Enabled = false;DTFrom.Enabled = true;DTTo.Enabled = true; }
+        private void rdPayLatterReport_CheckedChanged(object sender, EventArgs e) { Mode = enMode.ReportForPayLaterTests; cmbCustumerName.Enabled = true; DTFrom.Enabled = true; DTTo.Enabled = true; }
+        private void rdbPayLaterFromDateToDate_CheckedChanged(object sender, EventArgs e) { Mode = enMode.ReportPayLatterFromDateToDate; cmbCustumerName.Enabled = false; DTFrom.Enabled = true; DTTo.Enabled = true; }
+        private void rbTestsAndFinancial_CheckedChanged(object sender, EventArgs e) { Mode = enMode.TestsAndFinancialReport; cmbCustumerName.Enabled = false; DTFrom.Enabled = true; DTTo.Enabled = true; }
+        private void rbFinancialOnly_CheckedChanged(object sender, EventArgs e) { Mode = enMode.FinancialOnlyReport; cmbCustumerName.Enabled = false; DTFrom.Enabled = true; DTTo.Enabled = true; }
         private void rdoDebtSummary_CheckedChanged(object sender, EventArgs e)
         {
             Mode = enMode.DebtSummaryByCustomer;

@@ -102,6 +102,18 @@ namespace CarTestLogicalLayer
 
             LogFieldChange(id, userID, "الدفع لاحقاً",
                 oldData.PayLater.ToString(), newData.PayLater.ToString(), EntryType);
+
+            LogFieldChange(id, userID, "الشاصي الامامي يمين",
+                oldData.FRShassi, newData.FRShassi, EntryType);
+
+            LogFieldChange(id, userID, "الشاصي الامامي شمال",
+                oldData.FLShassi, newData.FLShassi, EntryType);
+
+            LogFieldChange(id, userID, "الشاصي الخلفي يمين",
+                oldData.BRShassi, newData.BRShassi, EntryType);
+
+            LogFieldChange(id, userID, "الشاصي الخلفي شمال",
+                oldData.BLShassi, newData.BLShassi, EntryType);
         }
 
         public static void LogRatingChanges(clsCarRating oldData,
