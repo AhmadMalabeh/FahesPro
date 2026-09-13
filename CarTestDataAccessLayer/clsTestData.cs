@@ -387,7 +387,7 @@ namespace CarTestDataAccessLayer
         new SqlParameter("@UserName", dto.UserName),
         new SqlParameter("@Password", dto.Password),
         new SqlParameter("@IsAdmin",  dto.IsAdmin)
-    };
+        };
 
             return _ExecuteScalar(query, "AddNewUser", p);
         }
@@ -407,7 +407,6 @@ namespace CarTestDataAccessLayer
 
             return _ExecuteNonQuery(query, "UpdateUser", p);
         }
-
         public static bool ChangePassword(int userID, string newPassword)
         {
             string query = @"UPDATE Users
@@ -421,7 +420,6 @@ namespace CarTestDataAccessLayer
 
             return _ExecuteNonQuery(query, "ChangePassword", p);
         }
-
         public static bool SetUserActiveStatus(int userID, bool isActive)
         {
             string query = @"UPDATE Users
@@ -435,7 +433,6 @@ namespace CarTestDataAccessLayer
 
             return _ExecuteNonQuery(query, "SetUserActiveStatus", p);
         }
-
         public static bool SetAdminStatus(int userID, bool isAdmin)
         {
             string query = @"UPDATE Users
