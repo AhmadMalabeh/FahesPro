@@ -49,8 +49,9 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(978, 53);
+            this.panel1.Size = new System.Drawing.Size(1304, 65);
             this.panel1.TabIndex = 17;
             // 
             // label1
@@ -58,9 +59,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(325, 9);
+            this.label1.Location = new System.Drawing.Point(433, 11);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(324, 35);
+            this.label1.Size = new System.Drawing.Size(413, 45);
             this.label1.TabIndex = 1;
             this.label1.Text = "شاشة سجل التغييرات";
             // 
@@ -71,11 +73,13 @@
             this.dgvAuditLog.BackgroundColor = System.Drawing.Color.White;
             this.dgvAuditLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAuditLog.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dgvAuditLog.Location = new System.Drawing.Point(8, 165);
+            this.dgvAuditLog.Location = new System.Drawing.Point(11, 203);
+            this.dgvAuditLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvAuditLog.Name = "dgvAuditLog";
             this.dgvAuditLog.ReadOnly = true;
             this.dgvAuditLog.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.dgvAuditLog.Size = new System.Drawing.Size(954, 266);
+            this.dgvAuditLog.RowHeadersWidth = 51;
+            this.dgvAuditLog.Size = new System.Drawing.Size(1272, 327);
             this.dgvAuditLog.TabIndex = 18;
             this.dgvAuditLog.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAuditLog_CellDoubleClick);
             // 
@@ -84,10 +88,11 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(795, 56);
+            this.label7.Location = new System.Drawing.Point(1060, 69);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label7.Size = new System.Drawing.Size(42, 19);
+            this.label7.Size = new System.Drawing.Size(52, 24);
             this.label7.TabIndex = 22;
             this.label7.Text = "الى:";
             // 
@@ -96,29 +101,32 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(921, 56);
+            this.label6.Location = new System.Drawing.Point(1228, 69);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label6.Size = new System.Drawing.Size(39, 19);
+            this.label6.Size = new System.Drawing.Size(46, 24);
             this.label6.TabIndex = 21;
             this.label6.Text = "من:";
             // 
             // DTTo
             // 
             this.DTTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DTTo.Location = new System.Drawing.Point(733, 87);
+            this.DTTo.Location = new System.Drawing.Point(977, 107);
+            this.DTTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DTTo.Name = "DTTo";
             this.DTTo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.DTTo.Size = new System.Drawing.Size(104, 20);
+            this.DTTo.Size = new System.Drawing.Size(137, 22);
             this.DTTo.TabIndex = 20;
             // 
             // DTFrom
             // 
             this.DTFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DTFrom.Location = new System.Drawing.Point(856, 87);
+            this.DTFrom.Location = new System.Drawing.Point(1141, 107);
+            this.DTFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DTFrom.Name = "DTFrom";
             this.DTFrom.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.DTFrom.Size = new System.Drawing.Size(104, 20);
+            this.DTFrom.Size = new System.Drawing.Size(137, 22);
             this.DTFrom.TabIndex = 19;
             // 
             // SearchButton
@@ -127,11 +135,11 @@
             this.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SearchButton.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchButton.ForeColor = System.Drawing.Color.White;
-            this.SearchButton.Location = new System.Drawing.Point(818, 125);
+            this.SearchButton.Location = new System.Drawing.Point(1091, 154);
             this.SearchButton.Margin = new System.Windows.Forms.Padding(0);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.SearchButton.Size = new System.Drawing.Size(146, 37);
+            this.SearchButton.Size = new System.Drawing.Size(195, 46);
             this.SearchButton.TabIndex = 23;
             this.SearchButton.Text = "بحث";
             this.SearchButton.UseVisualStyleBackColor = false;
@@ -143,11 +151,11 @@
             this.btnNextDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNextDate.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNextDate.ForeColor = System.Drawing.Color.White;
-            this.btnNextDate.Location = new System.Drawing.Point(10, 448);
+            this.btnNextDate.Location = new System.Drawing.Point(13, 551);
             this.btnNextDate.Margin = new System.Windows.Forms.Padding(0);
             this.btnNextDate.Name = "btnNextDate";
             this.btnNextDate.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnNextDate.Size = new System.Drawing.Size(146, 53);
+            this.btnNextDate.Size = new System.Drawing.Size(195, 65);
             this.btnNextDate.TabIndex = 26;
             this.btnNextDate.Text = "<<";
             this.btnNextDate.UseVisualStyleBackColor = false;
@@ -159,11 +167,11 @@
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.Location = new System.Drawing.Point(414, 448);
+            this.btnRefresh.Location = new System.Drawing.Point(552, 551);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(0);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnRefresh.Size = new System.Drawing.Size(146, 53);
+            this.btnRefresh.Size = new System.Drawing.Size(195, 65);
             this.btnRefresh.TabIndex = 25;
             this.btnRefresh.Text = "تحديث";
             this.btnRefresh.UseVisualStyleBackColor = false;
@@ -175,11 +183,11 @@
             this.btnPrevDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrevDate.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrevDate.ForeColor = System.Drawing.Color.White;
-            this.btnPrevDate.Location = new System.Drawing.Point(818, 448);
+            this.btnPrevDate.Location = new System.Drawing.Point(1091, 551);
             this.btnPrevDate.Margin = new System.Windows.Forms.Padding(0);
             this.btnPrevDate.Name = "btnPrevDate";
             this.btnPrevDate.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnPrevDate.Size = new System.Drawing.Size(146, 53);
+            this.btnPrevDate.Size = new System.Drawing.Size(195, 65);
             this.btnPrevDate.TabIndex = 24;
             this.btnPrevDate.Text = ">>";
             this.btnPrevDate.UseVisualStyleBackColor = false;
@@ -187,9 +195,9 @@
             // 
             // frmAuditLog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(978, 510);
+            this.ClientSize = new System.Drawing.Size(1304, 628);
             this.Controls.Add(this.btnNextDate);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnPrevDate);
@@ -200,9 +208,12 @@
             this.Controls.Add(this.DTFrom);
             this.Controls.Add(this.dgvAuditLog);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "frmAuditLog";
-            this.Text = "frmAuditLog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "شاشة تتبع تغييرات النظام";
             this.Load += new System.EventHandler(this.frmAuditLog_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
