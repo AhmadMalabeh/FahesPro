@@ -14,6 +14,10 @@ namespace CarTestUserInterFace
     public partial class MainScreen : Form
     {
         clsUsers CurrentUser;
+        private bool _backupCompleted;
+        private bool _backupInProgress;
+        private bool _restartAfterBackup;
+
         public MainScreen(clsUsers User)
         {
             InitializeComponent();
@@ -72,19 +76,87 @@ namespace CarTestUserInterFace
             ToolsForm.Show();
         }
 
-        private void MainScreen_FormClosing(object sender, FormClosingEventArgs e)
+        private async void MainScreen_FormClosing(object sender, FormClosingEventArgs e)
         {
-            clsBackupManager.PerformSafeBackup();
+            if (_backupCompleted)
+                return;
+
+            e.Cancel = true;
+
+            if (_backupInProgress)
+                return;
+
+            _backupInProgress = true;
+            bool backupSucceeded = false;
+
+            using (Form progressForm = new Form
+            {
+                Text = "النسخ الاحتياطي",
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                StartPosition = FormStartPosition.CenterParent,
+                ShowInTaskbar = false,
+                ControlBox = false,
+                RightToLeft = RightToLeft.Yes,
+                RightToLeftLayout = true,
+                ClientSize = new Size(420, 105)
+            })
+            {
+                Label statusLabel = new Label
+                {
+                    AutoSize = false,
+                    Dock = DockStyle.Top,
+                    Height = 55,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Text = "جاري إنشاء النسخة الاحتياطية، الرجاء الانتظار..."
+                };
+                ProgressBar progressBar = new ProgressBar
+                {
+                    Dock = DockStyle.Bottom,
+                    Height = 22,
+                    Style = ProgressBarStyle.Marquee,
+                    MarqueeAnimationSpeed = 30
+                };
+                progressForm.Controls.Add(progressBar);
+                progressForm.Controls.Add(statusLabel);
+
+                try
+                {
+                    progressForm.Show(this);
+                    backupSucceeded = await Task.Run(() => clsBackupManager.PerformSafeBackup());
+                }
+                catch (Exception ex)
+                {
+                    SharedLogging.clsLogger.LogError(ex, "UI -> MainScreen_FormClosing backup");
+                }
+                finally
+                {
+                    progressForm.Close();
+                    _backupCompleted = true;
+                    _backupInProgress = false;
+                }
+            }
+
+            if (!backupSucceeded)
+            {
+                MessageBox.Show(
+                    "تعذر إنشاء النسخة الاحتياطية. يمكنك مراجعة سجل الأخطاء.",
+                    "فشل النسخ الاحتياطي",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+
+            bool restartAfterBackup = _restartAfterBackup;
+            _restartAfterBackup = false;
+            Close();
+
+            if (restartAfterBackup)
+                Application.Restart();
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
-            // نخبر البرنامج أننا نريد إغلاق الشاشة الحالية فقط
-            // وسيقوم حدث FormClosing بتنفيذ النسخ الاحتياطي تلقائياً كما خططت
+            _restartAfterBackup = true;
             this.Close();
-
-            // لإعادة تشغيل البرنامج من الصفر (إظهار شاشة الدخول مجدداً)
-            Application.Restart();
         }
 
         private void btnDialyExpensesScreen_Click(object sender, EventArgs e)

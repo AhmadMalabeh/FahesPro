@@ -20,8 +20,9 @@ namespace CarTestLogicalLayer
         private static string TempBackup => Path.Combine(BackupFolder, "backup_temp.bak");
         private static string PrevBackup => Path.Combine(BackupFolder, "backup_prev.bak");
 
-        public static void PerformSafeBackup()
+        public static bool PerformSafeBackup()
         {
+            bool backupSucceeded = false;
             try
             {
                 // إنشاء المجلد إذا لم يكن موجوداً
@@ -52,6 +53,7 @@ namespace CarTestLogicalLayer
 
                 // 4) ترقية المؤقت إلى الأساسي
                 File.Move(TempBackup, FinalBackup);
+                backupSucceeded = true;
             }
             catch (Exception ex)
             {
@@ -62,6 +64,8 @@ namespace CarTestLogicalLayer
                 // تنظيف الملف المؤقت إذا بقي موجوداً
                 SafeDeleteIfExists(TempBackup);
             }
+
+            return backupSucceeded;
         }
 
         // =========================================
