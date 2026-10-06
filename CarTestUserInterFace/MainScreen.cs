@@ -17,6 +17,11 @@ namespace CarTestUserInterFace
         private bool _backupCompleted;
         private bool _backupInProgress;
         private bool _restartAfterBackup;
+#if DEBUG
+        private const int BackupProgressTestDelayMilliseconds = 5000;
+#else
+        private const int BackupProgressTestDelayMilliseconds = 0;
+#endif
 
         public MainScreen(clsUsers User)
         {
@@ -122,6 +127,9 @@ namespace CarTestUserInterFace
                 try
                 {
                     progressForm.Show(this);
+                    if (BackupProgressTestDelayMilliseconds > 0)
+                        await Task.Delay(BackupProgressTestDelayMilliseconds);
+
                     backupSucceeded = await Task.Run(() => clsBackupManager.PerformSafeBackup());
                 }
                 catch (Exception ex)
